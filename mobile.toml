@@ -1,0 +1,5 @@
+[app]
+name = "rs-mobile"
+stylized-name = "Rs Mobile"
+domain = "example.com"
+template-pack = "wry"
