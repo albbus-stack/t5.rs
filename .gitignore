@@ -8,3 +8,6 @@ target/
 
 # macOS
 .DS_Store
+
+# Tailwind CSS
+assets/out/

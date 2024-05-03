@@ -57,31 +57,43 @@ pub fn main() -> Result<()> {
     Ok(())
 }
 
+fn get_head() -> Element {
+    rsx! {
+        head {
+            style {
+                dangerous_inner_html: include_str!("../assets/out/tailwind.css")
+            }
+        }
+    }
+}
+
 fn app() -> Element {
     let mut items = use_signal(|| vec![1, 2, 3]);
 
     log::debug!("Hello from the app");
 
     rsx! {
-        style {
-
-        }
-        div {
-            h1 { "Hello, Mobile" }
-            div { margin_left: "auto", margin_right: "auto", width: "200px", padding: "10px", border: "1px solid black",
-                button {
-                    margin_bottom: "10px",
-                    onclick: move|_| {
-                        println!("Clicked!");
-                        let mut items_mut = items.write();
-                        let new_item = items_mut.len() + 1;
-                        items_mut.push(new_item);
-                        println!("Requested update");
-                    },
-                    "Add item"
-                }
-                for item in items.read().iter() {
-                    div { "- {item}" }
+        {get_head()}
+        body {
+            div {
+                class: "flex flex-col justify-center items-center min-h-screen bg-gray-900 text-white py-10",
+                h1 { class: "text-4xl mb-8 font-bold", "Hello, T5 🚀" }
+                div {
+                    class: "flex flex-col justify-center items-center",
+                    button {
+                        class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mb-3",
+                        onclick: move|_| {
+                            println!("Clicked!");
+                            let mut items_mut = items.write();
+                            let new_item = items_mut.len() + 1;
+                            items_mut.push(new_item);
+                            println!("Requested update");
+                        },
+                        "Add item"
+                    }
+                    for item in items.read().iter() {
+                        div { "- {item}" }
+                    }
                 }
             }
         }

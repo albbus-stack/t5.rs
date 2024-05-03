@@ -1,9 +1,19 @@
-# wry
+# T5 Stack
 
-## iOS
+## Android
 
-Must run Xcode on rosetta. Goto Application > Right Click Xcode > Get Info > Open in Rosetta.
+- Watch and build TailwindCSS using:
 
-If you are using M1, you will have to run `cargo build --target x86_64-apple-ios` instead of `cargo apple build` if you want to run in simulator.
+`pnpm dlx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch`
 
-Otherwise, it's all `cargo apple run` when running in actual device.
+or
+
+`cargo run-script tailwind`
+
+- Compile and run Android app using:
+
+`cargo android build && cargo android run`
+
+or
+
+`cargo run-script android`
