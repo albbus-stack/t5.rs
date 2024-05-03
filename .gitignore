@@ -4,7 +4,6 @@ target/
 
 # cargo-mobile2
 .cargo/
-/gen
 
 # macOS
 .DS_Store
