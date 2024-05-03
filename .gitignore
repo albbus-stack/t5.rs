@@ -10,3 +10,6 @@ target/
 
 # Tailwind CSS
 assets/out/
+
+# Material Tailwind
+node_modules/

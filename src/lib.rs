@@ -1,4 +1,5 @@
 use anyhow::Result;
+use dioxus::dioxus_core;
 use dioxus::prelude::*;
 
 #[cfg(target_os = "android")]
@@ -61,16 +62,24 @@ fn get_head() -> Element {
     rsx! {
         head {
             style {
-                dangerous_inner_html: include_str!("../assets/out/tailwind.css")
+                {include_str!("../assets/out/tailwind.css")}
             }
+        }
+    }
+}
+
+fn button(text: &str, onclick: impl FnMut(Event<MouseData>) + 'static) -> Element {
+    rsx! {
+        button {
+            class: "select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none",
+            onclick: onclick,
+            {text}
         }
     }
 }
 
 fn app() -> Element {
     let mut items = use_signal(|| vec![1, 2, 3]);
-
-    log::debug!("Hello from the app");
 
     rsx! {
         {get_head()}
@@ -79,20 +88,21 @@ fn app() -> Element {
                 class: "flex flex-col justify-center items-center min-h-screen bg-gray-900 text-white py-10",
                 h1 { class: "text-4xl mb-8 font-bold", "Hello, T5 🚀" }
                 div {
-                    class: "flex flex-col justify-center items-center",
-                    button {
-                        class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mb-3",
-                        onclick: move|_| {
-                            println!("Clicked!");
+                    class: "flex flex-col justify-center items-center gap-4",
+                    {button("Add item", move|_| {
                             let mut items_mut = items.write();
                             let new_item = items_mut.len() + 1;
                             items_mut.push(new_item);
-                            println!("Requested update");
-                        },
-                        "Add item"
-                    }
-                    for item in items.read().iter() {
-                        div { "- {item}" }
+                    })}
+                    {button("Remove item", move|_| {
+                        let mut items_mut = items.write();
+                        items_mut.pop();
+                    })}
+                    div {
+                        class: "mt-2",
+                        for item in items.read().iter() {
+                            div { "- {item}" }
+                        }
                     }
                 }
             }
