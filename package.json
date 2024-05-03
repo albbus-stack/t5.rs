@@ -1,5 +1,9 @@
 {
-	"dependencies": {
-		"@material-tailwind/html": "^2.2.2"
-	}
+  "scripts": {
+    "android": "cargo android run",
+    "tailwind": "pnpm dlx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch"
+  },
+  "dependencies": {
+    "@material-tailwind/html": "^2.2.2"
+  }
 }

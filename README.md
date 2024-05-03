@@ -8,7 +8,7 @@
 
 or
 
-`cargo run-script tailwind`
+`pnpm tailwind`
 
 - Compile and run Android app using:
 
@@ -16,8 +16,4 @@ or
 
 or
 
-`cargo run-script android`
-
-## TODO
-
-- Integrate with Material Tailwind component library
+`pnpm android`
