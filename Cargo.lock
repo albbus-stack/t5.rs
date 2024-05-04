@@ -550,6 +550,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "console_error_panic_hook"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a06aeb73f470f66dcdbf7223caeebb85984942f22f1adb2a088cf9668146bbbc"
+dependencies = [
+ "cfg-if",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "const_format"
 version = "0.2.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -975,6 +985,7 @@ dependencies = [
  "serde_repr",
  "tokio",
  "tracing",
+ "wasm-bindgen",
  "web-sys",
 ]
 
@@ -998,9 +1009,12 @@ checksum = "cc68a22e33562317b40ccc7b2d140017e510745c5d7e062e911c6a4f9042e4b1"
 dependencies = [
  "dioxus-core",
  "dioxus-html",
+ "js-sys",
  "md5",
  "sledgehammer_bindgen",
  "sledgehammer_utils",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]
@@ -1055,6 +1069,31 @@ dependencies = [
  "parking_lot",
  "rustc-hash",
  "tracing",
+]
+
+[[package]]
+name = "dioxus-web"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a75cfbe115b193a05c649a80a54a90a6bdd88779694a617daf27d287d6fb944f"
+dependencies = [
+ "async-trait",
+ "console_error_panic_hook",
+ "dioxus-core",
+ "dioxus-html",
+ "dioxus-interpreter-js",
+ "futures-channel",
+ "futures-util",
+ "generational-box",
+ "js-sys",
+ "rustc-hash",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_json",
+ "tracing",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
 ]
 
 [[package]]
@@ -2940,13 +2979,16 @@ version = "0.1.0"
 dependencies = [
  "android_logger",
  "anyhow",
+ "console_error_panic_hook",
  "core-foundation",
  "dioxus",
+ "dioxus-web",
  "env_logger 0.9.3",
  "jni",
  "log",
  "paste",
  "tao",
+ "wasm-logger",
  "wry",
 ]
 
@@ -3060,6 +3102,17 @@ checksum = "f3a1a3341211875ef120e117ea7fd5228530ae7e7036a779fdc9117be6b3282c"
 dependencies = [
  "ordered-float",
  "serde",
+]
+
+[[package]]
+name = "serde-wasm-bindgen"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3b143e2833c57ab9ad3ea280d21fd34e285a42837aeb0ee301f4f41890fa00e"
+dependencies = [
+ "js-sys",
+ "serde",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -3255,6 +3308,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fcfaf791ff02f48f3518ce825d32cf419c13a43c1d8b1232f74ac89f339c46d2"
 dependencies = [
  "sledgehammer_bindgen_macro",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -3847,6 +3901,17 @@ name = "wasm-bindgen-shared"
 version = "0.2.92"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "af190c94f2773fdb3729c55b007a722abb5384da03bc0986df4c289bf5567e96"
+
+[[package]]
+name = "wasm-logger"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "074649a66bb306c8f2068c9016395fa65d8e08d2affcbf95acf3c24c3ab19718"
+dependencies = [
+ "log",
+ "wasm-bindgen",
+ "web-sys",
+]
 
 [[package]]
 name = "wasm-streams"

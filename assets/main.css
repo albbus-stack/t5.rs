@@ -24,5 +24,6 @@
   word-wrap: normal;
   direction: ltr;
   -moz-font-feature-settings: "liga";
+  font-feature-settings: "liga";
   -moz-osx-font-smoothing: grayscale;
 }

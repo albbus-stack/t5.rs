@@ -1,19 +1,17 @@
 # T5 Stack
 
+- Watch and build TailwindCSS using `pnpm tailwind`
+
+## Web
+
+> BUG: To compile this you must switch on the "web" feature of the `dioxus` package and remove the "mobile" one from the `Cargo.toml`.
+
+- Compile and run web app using `pnpm web`
+
 ## Android
 
-- Watch and build TailwindCSS using:
+- Compile and run Android app using `pnpm android`
 
-`pnpm dlx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch`
+## Desktop
 
-or
-
-`pnpm tailwind`
-
-- Compile and run Android app using:
-
-`cargo android build && cargo android run`
-
-or
-
-`pnpm android`
+- Compile and run desktop app using `pnpm desktop`

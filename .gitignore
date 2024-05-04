@@ -13,3 +13,6 @@ assets/out/
 
 # Material Tailwind
 node_modules/
+
+# Dioxus Web
+dist/

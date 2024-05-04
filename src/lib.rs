@@ -1,5 +1,4 @@
 use anyhow::Result;
-use dioxus::dioxus_core;
 use dioxus::prelude::*;
 
 #[cfg(target_os = "android")]
@@ -11,9 +10,15 @@ fn init_logging() {
     );
 }
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_arch = "wasm32")))]
 fn init_logging() {
     env_logger::init();
+}
+
+#[cfg(target_arch = "wasm32")]
+fn init_logging() {
+    wasm_logger::init(wasm_logger::Config::default());
+    console_error_panic_hook::set_once();
 }
 
 #[cfg(any(target_os = "android", target_os = "ios"))]
