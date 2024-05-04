@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "desktop": "cargo watch -w ./src/ -- cargo run",
     "web": "dx serve",
     "android": "cargo watch -w ./src/ -- cargo android run",
-    "tailwind": "pnpm dlx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch"
+    "desktop": "cargo watch -w ./src/ -- cargo run",
+    "tailwind": "bunx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch"
   },
   "dependencies": {
     "@material-tailwind/html": "^2.2.2"
