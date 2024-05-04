@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "api": "cd api && cargo watch -w ./src/ -- cargo run",
     "web": "dx serve",
     "android": "cargo watch -w ./src/ -- cargo android run",
     "desktop": "cargo watch -w ./src/ -- cargo run",

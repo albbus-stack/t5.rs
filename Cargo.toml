@@ -1,3 +1,4 @@
+workspace = { members = ["api"] }
 [package]
 name = "rs-mobile"
 version = "0.1.0"
@@ -35,6 +36,12 @@ frameworks = ["WebKit"]
 [dependencies]
 anyhow = "1.0"
 log = "0.4"
+reqwest = { version = "0.12.4", features = ["json"] }
+async-recursion = "1.1.1"
+futures = "0.3.30"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
 # TODO: figure out why switching these conditionally doesn't work
 dioxus = { version = "0.5", features = ["mobile"] }
 # dioxus = { version = "0.5", features = ["web"] }

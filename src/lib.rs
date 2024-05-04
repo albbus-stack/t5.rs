@@ -1,5 +1,7 @@
 use anyhow::Result;
 use dioxus::prelude::*;
+mod api;
+mod ui;
 
 #[cfg(target_os = "android")]
 fn init_logging() {
@@ -72,48 +74,51 @@ fn get_head() -> Element {
     }
 }
 
-fn button(text: &str, onclick: impl FnMut(Event<MouseData>) + 'static) -> Element {
-    rsx! {
-        button {
-            "data-ripple-dark": "true",
-            class: "select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none",
-            onclick: onclick,
-            {text}
-        }
-    }
-}
-
 fn app() -> Element {
     let mut items = use_signal(|| vec![1, 2, 3]);
 
     rsx! {
         {get_head()},
         body {
-            div { class: "flex flex-col justify-center items-center min-h-screen bg-gray-900 text-white py-10",
+            div { class: "flex flex-col items-center h-screen bg-gray-900 text-white py-10 pt-20 relative",
                 h1 { class: "text-4xl mb-8 font-bold", "Hello, T5 🚀" }
                 div { class: "flex flex-col justify-center items-center gap-4",
-                    {button("Add item", move|_| {
+                    {ui::text_button("Add item", move|_| {
                             let mut items_mut = items.write();
                             let new_item = items_mut.len() + 1;
                             items_mut.push(new_item);
-                    })},
-                    {button("Remove item", move|_| {
+                    }, "", ui::Variant::Primary)},
+                    {ui::text_button("Remove item", move|_| {
                         let mut items_mut = items.write();
                         items_mut.pop();
-                    })},
-                    button {
-                        "data-ripple-dark": "true",
-                        "type": "button",
-                        class: "relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs bg-gray-100 text-gray-900 shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none",
-                        span { class: "material-icons pt-1", "account_circle" }
-                    }
-                    div { class: "mt-2",
-                        for item in items.read().iter() {
-                            div { "- {item}" }
-                        }
+                    }, "mb-5", ui::Variant::Secondary)},
+                    {ui::button(ui::icon("account_circle", "pt-1"), move|_| {}, "mb-5", ui::Variant::Neutral)}
+                }
+                {posts()},
+                div { class: "mt-2 max-h-[300px] overflow-y-auto",
+                    for item in items.read().iter() {
+                        div { "- {item}" }
                     }
                 }
             }
+        }
+    }
+}
+
+fn posts() -> Element {
+    let post = use_resource(move || api::get_post(0123456789));
+
+    match &*post.read_unchecked() {
+        Some(Ok(post)) => {
+            rsx! {
+                {format!("id: {} | title: {} | body: {}", post.id, post.title, post.body)}
+            }
+        }
+        Some(Err(err)) => {
+            rsx! { "An error occurred while fetching stories {err}" }
+        }
+        None => {
+            rsx! { "Loading items" }
         }
     }
 }
