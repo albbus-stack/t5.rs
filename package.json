@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "android": "cargo android run",
+    "desktop": "cargo watch -w ./src/ -- cargo run",
+    "android": "cargo watch -w ./src/ -- cargo android run",
     "tailwind": "pnpm dlx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch"
   },
   "dependencies": {

@@ -60,10 +60,12 @@ pub fn main() -> Result<()> {
 
 fn get_head() -> Element {
     rsx! {
-        head {
-            style {
-                {include_str!("../assets/out/tailwind.css")}
-            }
+        style {
+            {include_str!("../assets/out/tailwind.css")}
+        }
+        script {
+            "type": "module",
+            {include_str!("../node_modules/@material-tailwind/html/scripts/ripple.js")}
         }
     }
 }
@@ -71,6 +73,7 @@ fn get_head() -> Element {
 fn button(text: &str, onclick: impl FnMut(Event<MouseData>) + 'static) -> Element {
     rsx! {
         button {
+            "data-ripple-dark": "true",
             class: "select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none",
             onclick: onclick,
             {text}
@@ -98,6 +101,14 @@ fn app() -> Element {
                         let mut items_mut = items.write();
                         items_mut.pop();
                     })}
+                    button {
+                        "data-ripple-dark": "true",
+                        "type": "button",
+                        class: "relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs bg-gray-100 text-gray-900 shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none",
+                        span {
+                            class: "material-icons pt-1", "account_circle"
+                        }
+                    }
                     div {
                         class: "mt-2",
                         for item in items.read().iter() {
