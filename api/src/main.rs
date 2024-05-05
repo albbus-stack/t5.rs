@@ -7,6 +7,6 @@ async fn main() {
 
     let routes = routes::routes();
 
-    println!("\nServer started at http://localhost:8000");
+    println!("\n\x1b[1;32mServer started at http://localhost:8000\n\x1b[0m");
     warp::serve(routes).run(([127, 0, 0, 1], 8000)).await;
 }
