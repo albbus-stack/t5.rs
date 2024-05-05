@@ -16,3 +16,6 @@ node_modules/
 
 # Dioxus Web
 dist/
+
+# Turbo
+.turbo/

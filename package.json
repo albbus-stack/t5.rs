@@ -4,9 +4,13 @@
     "web": "dx serve",
     "android": "cargo watch -w ./src/ -- cargo android run",
     "desktop": "cargo watch -w ./src/ -- cargo run",
-    "tailwind": "bunx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch"
+    "tailwind": "bunx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch",
+    "dev:web": "turbo tailwind api web",
+    "dev:android": "turbo tailwind android",
+    "dev:desktop": "turbo tailwind api desktop"
   },
   "dependencies": {
-    "@material-tailwind/html": "^2.2.2"
+    "@material-tailwind/html": "^2.2.2",
+    "turbo": "^1.13.3"
   }
 }
