@@ -1,3 +1,4 @@
+mod handlers;
 mod routes;
 use env_logger;
 

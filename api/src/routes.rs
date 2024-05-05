@@ -1,4 +1,4 @@
-mod handlers;
+use super::handlers;
 use warp::Filter;
 
 pub static APP_URL: &str = "http://localhost:8080";

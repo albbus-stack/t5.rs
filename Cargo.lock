@@ -121,6 +121,7 @@ checksum = "f538837af36e6f6a9be0faa67f9a314f8119e4e4b5867c6ab40ed60360142519"
 name = "api"
 version = "0.1.0"
 dependencies = [
+ "common",
  "env_logger 0.11.3",
  "serde",
  "tokio",
@@ -609,6 +610,13 @@ checksum = "ba5a308b75df32fe02788e748662718f03fde005016435c444eea572398219fd"
 dependencies = [
  "bytes",
  "memchr",
+]
+
+[[package]]
+name = "common"
+version = "0.1.0"
+dependencies = [
+ "serde",
 ]
 
 [[package]]
@@ -3453,6 +3461,7 @@ dependencies = [
  "android_logger",
  "anyhow",
  "async-recursion",
+ "common",
  "console_error_panic_hook",
  "core-foundation",
  "dioxus",
@@ -3464,7 +3473,6 @@ dependencies = [
  "paste",
  "reqwest",
  "serde",
- "serde_json",
  "tao",
  "wasm-logger",
  "wry",
