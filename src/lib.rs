@@ -95,7 +95,7 @@ fn app() -> Element {
                     {ui::button(ui::icon("account_circle", "pt-1"), move|_| {}, "mb-5", ui::Variant::Neutral)}
                 }
                 {posts()},
-                div { class: "mt-2 max-h-[300px] overflow-y-auto",
+                div { class: "mt-2 overflow-y-auto w-full text-center",
                     for item in items.read().iter() {
                         div { "- {item}" }
                     }
