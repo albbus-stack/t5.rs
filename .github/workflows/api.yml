@@ -34,4 +34,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: api
-          path: target/release/api.exe
+          path: target/release/api
