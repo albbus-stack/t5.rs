@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
@@ -31,7 +31,7 @@ jobs:
         run: cd api && cargo build --release
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: api
           path: target/release/api
