@@ -108,17 +108,17 @@ fn app() -> Element {
 fn posts() -> Element {
     let post = use_resource(move || api::get_post(0123456789));
 
-    match &*post.read_unchecked() {
-        Some(Ok(post)) => {
-            rsx! {
-                {format!("id: {} | title: {} | body: {}", post.id, post.title, post.body)}
+    rsx! {
+        div { class: "text-center",
+            match &*post.read_unchecked() {
+                Some(Ok(post)) => {
+                    format!("id: {} | title: {} | body: {}", post.id, post.title, post.body)
+                }
+                Some(Err(err)) => {
+                    format!("An error occurred while fetching stories {}", err)
+                }
+                None => {"Loading items".to_string()}
             }
-        }
-        Some(Err(err)) => {
-            rsx! { "An error occurred while fetching stories {err}" }
-        }
-        None => {
-            rsx! { "Loading items" }
         }
     }
 }
