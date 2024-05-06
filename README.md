@@ -1,8 +1,9 @@
 # t5.rs
 
-[![Bun](https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun)](https://bun.sh/)
 [![Rust](https://img.shields.io/badge/Rust-f75208?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
-[![Dioxus](https://img.shields.io/badge/Dioxus-00a8d6?style=for-the-badge)](https://dioxuslabs.com/)
+[![Dioxus](https://img.shields.io/badge/Dioxus-00a8d6?style=for-the-badge&logo=rust)](https://dioxuslabs.com/)
+[![Warp](https://img.shields.io/badge/Warp-1a202c?style=for-the-badge&logo=rust&logoColor=white)](https://github.com/seanmonstar/warp)
+[![Bun](https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun)](https://bun.sh/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
 - Install cargo-watch using `cargo install cargo-watch`
