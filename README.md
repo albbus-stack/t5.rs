@@ -10,7 +10,7 @@
 - Install dependencies using `bun install`
 - Watch and build TailwindCSS using `bun tailwind`
 
->All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by copying the correct `Cargo.toml` file to the project root
+>All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by automatically copying the correct `Cargo.toml` file to the project root.
 
 ## API
 

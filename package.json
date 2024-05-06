@@ -5,16 +5,12 @@
     "android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo watch -w ./src/ -- cargo android run",
     "desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx serve --platform desktop",
     "tailwind": "bunx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch",
-    "dev:web": "turbo tailwind api web",
-    "dev:android": "turbo tailwind android",
-    "dev:desktop": "turbo tailwind api desktop",
     "build:api": "cd api && cargo build --release",
-    "build:web": "dx build --release",
-    "build:android": "cargo android build --release",
-    "build:desktop": "cargo build --release"
+    "build:web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --release",
+    "build:android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android build --release",
+    "build:desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && cargo build --release"
   },
   "dependencies": {
-    "@material-tailwind/html": "^2.2.2",
-    "turbo": "^1.13.3"
+    "@material-tailwind/html": "^2.2.2"
   }
 }
