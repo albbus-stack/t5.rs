@@ -47,12 +47,12 @@ pub extern "C" fn start_app() {
     {
         tao::android_binding!(
             com_example,
-            rs_mobile,
+            t5_rs,
             WryActivity,
             wry::android_setup,
             _start_app
         );
-        wry::android_binding!(com_example, rs_mobile);
+        wry::android_binding!(com_example, t5_rs);
     }
 
     #[cfg(target_os = "ios")]

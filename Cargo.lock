@@ -3455,30 +3455,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rs-mobile"
-version = "0.1.0"
-dependencies = [
- "android_logger",
- "anyhow",
- "async-recursion",
- "common",
- "console_error_panic_hook",
- "core-foundation",
- "dioxus",
- "dioxus-web",
- "env_logger 0.9.3",
- "futures",
- "jni",
- "log",
- "paste",
- "reqwest",
- "serde",
- "tao",
- "wasm-logger",
- "wry",
-]
-
-[[package]]
 name = "rustc-demangle"
 version = "0.1.23"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4039,6 +4015,30 @@ dependencies = [
  "pkg-config",
  "toml",
  "version-compare",
+]
+
+[[package]]
+name = "t5-rs"
+version = "0.1.0"
+dependencies = [
+ "android_logger",
+ "anyhow",
+ "async-recursion",
+ "common",
+ "console_error_panic_hook",
+ "core-foundation",
+ "dioxus",
+ "dioxus-web",
+ "env_logger 0.9.3",
+ "futures",
+ "jni",
+ "log",
+ "paste",
+ "reqwest",
+ "serde",
+ "tao",
+ "wasm-logger",
+ "wry",
 ]
 
 [[package]]

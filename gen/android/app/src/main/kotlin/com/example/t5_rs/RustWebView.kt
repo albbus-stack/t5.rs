@@ -6,7 +6,7 @@
 
 @file:Suppress("unused", "SetJavaScriptEnabled")
 
-package com.example.rs_mobile
+package com.example.t5_rs
 
 import android.annotation.SuppressLint
 import android.webkit.*

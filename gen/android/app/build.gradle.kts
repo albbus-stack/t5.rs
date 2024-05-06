@@ -5,10 +5,10 @@ plugins {
 }
 
 android {
-    namespace="com.example.rs_mobile"
+    namespace="com.example.t5_rs"
     compileSdk = 33
     defaultConfig {
-        applicationId = "com.example.rs_mobile"
+        applicationId = "com.example.t5_rs"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

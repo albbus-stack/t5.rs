@@ -6,7 +6,7 @@
 
 @file:Suppress("unused")
 
-package com.example.rs_mobile
+package com.example.t5_rs
 
 import android.webkit.*
 
@@ -18,7 +18,7 @@ class Ipc {
 
     companion object {
         init {
-            System.loadLibrary("rs_mobile")
+            System.loadLibrary("t5_rs")
         }
     }
 

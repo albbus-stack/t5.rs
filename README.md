@@ -10,6 +10,8 @@
 - Install dependencies using `bun install`
 - Watch and build TailwindCSS using `bun tailwind`
 
+>All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by copying the correct `Cargo.toml` file to the project root
+
 ## API
 
 - Run API server using `bun api`
@@ -21,6 +23,12 @@
 > Works only without `openssl` installed with the `vendor` option in the `Cargo.toml`.
 
 - Compile and run web app using `bun web`
+
+## Desktop
+
+> Works with `openssl` installed with the `vendor` option and also without it (builds significantly faster both on Windows and Linux).
+
+- Compile and run desktop app using `bun desktop`
 
 ## Android
 
@@ -61,9 +69,3 @@ export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$TOOLCHAIN/bin
 
 - Compile and run Android app using `bun android`
 - Connect to the local API server using `adb reverse tcp:8000 tcp:8000`
-
-## Desktop
-
-> Works with `openssl` installed with the `vendor` option and also without it (builds significantly faster both on Windows and Linux).
-
-- Compile and run desktop app using `bun desktop`

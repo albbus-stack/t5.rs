@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-License-Identifier: MIT
 
-package com.example.rs_mobile
+package com.example.t5_rs
 
 import android.webkit.*
 import android.content.Context
@@ -56,7 +56,7 @@ class RustWebViewClient(context: Context): WebViewClient() {
 
     companion object {
         init {
-            System.loadLibrary("rs_mobile")
+            System.loadLibrary("t5_rs")
         }
     }
 

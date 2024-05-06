@@ -4,9 +4,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-License-Identifier: MIT
 
-package com.example.rs_mobile
+package com.example.t5_rs
 
-import com.example.rs_mobile.RustWebView
+import com.example.t5_rs.RustWebView
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
@@ -113,7 +113,7 @@ abstract class WryActivity : AppCompatActivity() {
 
     companion object {
         init {
-            System.loadLibrary("rs_mobile")
+            System.loadLibrary("t5_rs")
         }
     }
 

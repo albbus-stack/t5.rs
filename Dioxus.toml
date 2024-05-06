@@ -1,13 +1,13 @@
 [application]
 
-name = "rs-mobile"
+name = "t5-rs"
 default_platform = "web"
 out_dir = "dist"
 asset_dir = "assets"
 
 [web.app]
 
-title = "T5 Stack"
+title = "t5.rs"
 
 [web.watcher]
 

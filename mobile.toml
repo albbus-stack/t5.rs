@@ -1,5 +1,5 @@
 [app]
-name = "rs-mobile"
-stylized-name = "T5 Stack"
+name = "t5-rs"
+stylized-name = "t5.rs"
 domain = "example.com"
 template-pack = "wry"
