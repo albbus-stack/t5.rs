@@ -1,5 +1,11 @@
-# T5 Stack
+# t5.rs
 
+[![Bun](https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun)](https://bun.sh/)
+[![Rust](https://img.shields.io/badge/Rust-f75208?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
+[![Dioxus](https://img.shields.io/badge/Dioxus-00a8d6?style=for-the-badge)](https://dioxuslabs.com/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+
+- Install cargo-watch using `cargo install cargo-watch`
 - Install dependencies using `bun install`
 - Watch and build TailwindCSS using `bun tailwind`
 
@@ -9,15 +15,17 @@
 
 ## Web
 
-> BUG: To compile this you must switch on the "web" feature of the `dioxus` package and remove the "mobile" one & also comment out the explicit `openssl` dependency from the `Cargo.toml`.
+> To compile this you must switch on the "web" feature of the `dioxus` package and remove the "mobile" one.
+
+> Works only without `openssl` installed with the `vendor` option in the `Cargo.toml`.
 
 - Compile and run web app using `bun web`
 
 ## Android
 
-> Works only with `openssl` installed with the `vendor` option (requires `perl` of the UNIX flavour).
+> Works only with `openssl` installed with the `vendor` option (requires `perl` of the UNIX flavour to build it).
 
-You have to setup a `.cargo/config.toml` file in your home directory or in the project folder with the following content:
+You have to create a `.cargo/config.toml` file in your home directory or in the project folder with the following content:
 
 ```toml
 [target.aarch64-linux-android]
@@ -55,6 +63,6 @@ export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$TOOLCHAIN/bin
 
 ## Desktop
 
-> Works with `openssl` installed with the `vendor` option and also without it.
+> Works with `openssl` installed with the `vendor` option and also without it (builds significantly faster both on Windows and Linux).
 
 - Compile and run desktop app using `bun desktop`
