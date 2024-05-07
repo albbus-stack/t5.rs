@@ -14,7 +14,7 @@ pub struct Supabase {
 }
 
 #[derive(Serialize, Deserialize)]
-pub struct Password {
+pub struct Credentials {
     email: String,
     password: String,
 }
@@ -68,7 +68,7 @@ impl Supabase {
             .post(&request_url)
             .header("apikey", &self.api_key)
             .header("Content-Type", "application/json")
-            .json(&Password {
+            .json(&Credentials {
                 email: email.to_string(),
                 password: password.to_string(),
             })
@@ -118,7 +118,7 @@ impl Supabase {
             .post(&request_url)
             .header("apikey", &self.api_key)
             .header("Content-Type", "application/json")
-            .json(&Password {
+            .json(&Credentials {
                 email: email.to_string(),
                 password: password.to_string(),
             })

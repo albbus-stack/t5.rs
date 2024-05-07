@@ -2,12 +2,12 @@
 extern crate dotenvy_macro;
 
 use anyhow::Result;
+use auth::Supabase;
 use dioxus::prelude::*;
+
 mod api;
 mod auth;
 mod ui;
-
-use auth::Supabase;
 
 #[cfg(target_os = "android")]
 fn init_logging() {
@@ -135,7 +135,7 @@ fn app() -> Element {
             let result = supabase_client.read().clone().logout().await;
 
             match result {
-                Ok(_) => auth_output.set(result.unwrap().text().await.unwrap()),
+                Ok(_) => auth_output.set("".to_string()),
                 Err(err) => auth_output.set(format!("An error occurred while logging out {}", err)),
             }
         });

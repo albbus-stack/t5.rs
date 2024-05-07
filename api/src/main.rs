@@ -1,6 +1,7 @@
+use env_logger;
+
 mod handlers;
 mod routes;
-use env_logger;
 
 pub static APP_URL: &str = "http://localhost:8080";
 
