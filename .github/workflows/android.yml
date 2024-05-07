@@ -24,7 +24,7 @@ jobs:
           toolchain: stable
 
       - name: Build
-        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android build --release
+        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

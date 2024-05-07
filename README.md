@@ -39,6 +39,15 @@ You have to create a `.cargo/config.toml` file in your home directory or in the 
 ```toml
 [target.aarch64-linux-android]
 linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android<api-version>-clang"
+
+[target.armv7-linux-androideabi]
+...
+
+[target.i686-linux-android]
+...
+
+[target.x86_64-linux-android]
+...
 ```
 
 Also you should setup all these environment variables in your terminal or in your `.bashrc` or `.zshrc` file:

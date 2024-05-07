@@ -6,9 +6,9 @@
     "desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx serve --platform desktop",
     "tailwind": "bunx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch",
     "build:api": "cd api && cargo build --release",
-    "build:web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --release",
-    "build:android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android build --release",
-    "build:desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && cargo build --release"
+    "build:web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --platform web --release",
+    "build:android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release",
+    "build:desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx build --platform desktop --release"
   },
   "dependencies": {
     "@material-tailwind/html": "^2.2.2"

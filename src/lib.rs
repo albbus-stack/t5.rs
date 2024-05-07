@@ -109,7 +109,7 @@ fn posts() -> Element {
     let post = use_resource(move || api::get_post(0123456789));
 
     rsx! {
-        div { class: "text-center",
+        div { class: "text-center px-10",
             match &*post.read_unchecked() {
                 Some(Ok(post)) => {
                     format!("id: {} | title: {} | body: {}", post.id, post.title, post.body)
