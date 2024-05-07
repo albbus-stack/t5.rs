@@ -33,6 +33,6 @@
 
 body,
 html {
-  overflow-y: hidden;
+  overflow: hidden;
   font-family: "Inter", sans-serif;
 }

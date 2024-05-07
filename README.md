@@ -10,7 +10,11 @@
 - Install dependencies using `bun install`
 - Watch and build TailwindCSS using `bun tailwind`
 
->All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by automatically copying the correct `Cargo.toml` file to the project root.
+> All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by automatically copying the correct `Cargo.toml` file to the project root.
+
+## Supabase Auth
+
+- To setup Supabase Auth copy the `.env.example` file to `.env` and fill in the `SUPABASE_URL`, `SUPABASE_API_KEY` and `SUPABASE_JWT_SECRET` fields with your Supabase credentials (found in the Supabase dashboard under project settings).
 
 ## API
 

@@ -22,3 +22,6 @@ dist/
 
 # Build system
 Cargo.toml.bak
+
+# Env
+.env

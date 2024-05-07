@@ -1,7 +1,6 @@
-use super::handlers;
+use crate::handlers;
+use crate::APP_URL;
 use warp::Filter;
-
-pub static APP_URL: &str = "http://localhost:8080";
 
 // A function to build our routes
 pub fn routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
