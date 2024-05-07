@@ -1,13 +1,13 @@
 {
   "scripts": {
     "api": "cd api && cargo watch -w ./src/ -- cargo run",
-    "web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx serve",
+    "web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx serve --hot-reload",
     "android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo watch -w ./src/ -- cargo android run",
-    "desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx serve --platform desktop",
+    "desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx serve --platform desktop --hot-reload",
     "tailwind": "bunx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch",
     "build:api": "cd api && cargo build --release",
     "build:web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --platform web --release",
-    "build:android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release",
+    "build:android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release --split-per-abi",
     "build:desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx build --platform desktop --release"
   },
   "dependencies": {
