@@ -81,7 +81,7 @@ fn get_head() -> Element {
 }
 
 fn app() -> Element {
-    let mut supabase_client = use_signal(|| Supabase::new());
+    let mut supabase_client = use_signal(Supabase::new);
 
     let mut email = use_signal(|| "".to_string());
     let mut password = use_signal(|| "".to_string());

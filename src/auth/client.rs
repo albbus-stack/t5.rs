@@ -10,9 +10,9 @@ impl Supabase {
 
         Supabase {
             client,
-            url: url,
-            api_key: api_key,
-            jwt_secret: jwt_secret,
+            url,
+            api_key,
+            jwt_secret,
             bearer_token: None,
         }
     }

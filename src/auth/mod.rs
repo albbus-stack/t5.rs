@@ -45,9 +45,9 @@ impl Supabase {
     pub async fn jwt_valid(&self, jwt: &str) -> Result<Claims, jsonwebtoken::errors::Error> {
         let secret = self.jwt_secret.clone();
 
-        let decoding_key = DecodingKey::from_secret(secret.as_ref()).into();
+        let decoding_key = DecodingKey::from_secret(secret.as_ref());
         let validation = Validation::new(Algorithm::HS256);
-        let decoded_token = decode::<Claims>(&jwt, &decoding_key, &validation);
+        let decoded_token = decode::<Claims>(jwt, &decoding_key, &validation);
 
         match decoded_token {
             Ok(token_data) => {

@@ -8,7 +8,8 @@
     "build:api": "cd api && cargo build --release",
     "build:web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --platform web --release",
     "build:android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release --split-per-abi",
-    "build:desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx build --platform desktop --release"
+    "build:desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx build --platform desktop --release",
+    "lint": "cargo clippy"
   },
   "dependencies": {
     "@material-tailwind/html": "^2.2.2"
