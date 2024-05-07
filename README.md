@@ -6,7 +6,7 @@
 [![Bun](https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun)](https://bun.sh/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-A cross-platform full-stack application template using Rust, Dioxus, Cargo Mobile 2, Warp, Bun, and TailwindCSS.
+A cross-platform full-stack application template developed with Rust, Cargo Mobile 2, Dioxus, Warp, Bun, Supabase Auth and TailwindCSS.
 
 ## Development
 
@@ -49,18 +49,23 @@ You have to create a `.cargo/config.toml` file in your home directory or in the 
 linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android<api-version>-clang"
 
 [target.armv7-linux-androideabi]
-...
+linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/llvm/prebuilt/linux-x86_64/bin/armv7-linux-android<api-version>-clang"
 
 [target.i686-linux-android]
-...
+linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/llvm/prebuilt/linux-x86_64/bin/i686-linux-android<api-version>-clang"
 
 [target.x86_64-linux-android]
-...
+linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android<api-version>-clang"
 ```
 
 Also you should setup all these environment variables in your terminal or in your `.bashrc` or `.zshrc` file:
 
 ```sh
+# These two variables depend on the architecture of the device 
+# and the API version you are targeting
+export TARGET=aarch64-linux-android
+export API=33
+
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 export ANDROID_HOME=$HOME/android
 export ANDROID_SDK_ROOT=$ANDROID_HOME
@@ -68,11 +73,6 @@ export NDK_HOME=$ANDROID_HOME/ndk/26.3.11579264
 export ANDROID_NDK_HOME=$NDK_HOME
 
 export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
-
-# These two variables depend on the architecture of the device and the API version you are targeting
-export TARGET=aarch64-linux-android
-export API=33
-
 export AR=$TOOLCHAIN/bin/llvm-ar
 export CC=$TOOLCHAIN/bin/$TARGET$API-clang
 export AS=$CC
@@ -81,7 +81,9 @@ export LD=$TOOLCHAIN/bin/ld
 export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
 export STRIP=$TOOLCHAIN/bin/llvm-strip
 
-export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$TOOLCHAIN/bin:$NDK_HOME:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH
+export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:\
+    $TOOLCHAIN/bin:$NDK_HOME:$ANDROID_HOME/platform-tools:\
+    $ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH
 ```
 
 - Compile and run Android app using `bun android`
