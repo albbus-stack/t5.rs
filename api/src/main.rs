@@ -5,8 +5,6 @@ mod db;
 mod handlers;
 mod routes;
 
-pub static APP_URL: &str = "http://localhost:8080";
-
 #[tokio::main]
 async fn main() {
     env_logger::Builder::from_env(env_logger::Env::new().default_filter_or("info")).init();

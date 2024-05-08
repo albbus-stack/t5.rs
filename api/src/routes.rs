@@ -1,5 +1,4 @@
 use crate::handlers;
-use crate::APP_URL;
 use warp::Filter;
 
 pub fn routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
@@ -8,7 +7,8 @@ pub fn routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejecti
         // .or(other_route())
         .with(
             warp::cors()
-                .allow_origin(APP_URL)
+                .allow_origin(dotenv!("APP_URL"))
+                // Add other HTTP methods here
                 .allow_methods(vec!["GET"]),
         )
         .with(warp::log("api"))
