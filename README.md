@@ -2,11 +2,12 @@
 
 [![Rust](https://img.shields.io/badge/Rust-f75208?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![Dioxus](https://img.shields.io/badge/Dioxus-00a8d6?style=for-the-badge&logo=rust)](https://dioxuslabs.com/)
-[![Warp](https://img.shields.io/badge/Warp-1a202c?style=for-the-badge&logo=rust&logoColor=white)](https://github.com/seanmonstar/warp)
+[![Diesel](https://img.shields.io/badge/Diesel-9b0000?style=for-the-badge&logo=rust&logoColor=white)](https://github.com/seanmonstar/warp)
+[![Supabase](https://img.shields.io/badge/Supabase-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.io/)
 [![Bun](https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun)](https://bun.sh/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-A cross-platform full-stack application template developed with Rust, Cargo Mobile 2, Dioxus, Warp, Diesel, Supabase Auth, Bun and TailwindCSS.
+A cross-platform full-stack application template developed with Rust, Cargo Mobile 2, Dioxus, Warp, Diesel, PostgreSQL, Supabase Auth, Bun and TailwindCSS.
 
 ## Development
 
@@ -22,14 +23,14 @@ A cross-platform full-stack application template developed with Rust, Cargo Mobi
 
 #### Database
 
-- To setup the database integration fill in the `DATABASE_URL` in the `.env` file with a PostgreSQL connection string.
+- To setup the database integration fill in the `DATABASE_URL` in the `.env` file with a PostgreSQL connection string:
 
 ```sh
 DATABASE_URL="postgres://postgres.<name>:<password>@<domain>:<port>/<database>"
 ```
 
 - Install the Diesel CLI using `cargo install diesel_cli --no-default-features --features postgres`
-- Run the migrations using `bun migrate`.
+- Run the migrations using `bun migrate`
 
 ### API
 
