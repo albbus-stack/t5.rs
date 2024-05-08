@@ -175,7 +175,8 @@ fn app() -> Element {
 }
 
 fn api_response() -> Element {
-    let post = use_resource(move || api::get_post(1234567890));
+    let post: Resource<std::prelude::v1::Result<common::Post, reqwest::Error>> =
+        use_resource(move || api::get_post(1));
 
     rsx! {
         div { class: "text-center px-10",

@@ -6,7 +6,7 @@
 [![Bun](https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun)](https://bun.sh/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-A cross-platform full-stack application template developed with Rust, Cargo Mobile 2, Dioxus, Warp, Bun, Supabase Auth and TailwindCSS.
+A cross-platform full-stack application template developed with Rust, Cargo Mobile 2, Dioxus, Warp, Diesel, Supabase Auth, Bun and TailwindCSS.
 
 ## Development
 
@@ -14,35 +14,44 @@ A cross-platform full-stack application template developed with Rust, Cargo Mobi
 - Install dependencies using `bun install`
 - Watch and build TailwindCSS using `bun tailwind`
 
-> All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by automatically copying the correct `Cargo.toml` file to the project root.
+> All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by automatically copying the correct `Cargo.toml` file to the project root so *beware of running multiple platorms at the same time*.
 
-## Supabase Auth
+#### Supabase Auth
 
 - To setup Supabase Auth copy the `.env.example` file to `.env` and fill in the `SUPABASE_URL`, `SUPABASE_API_KEY` and `SUPABASE_JWT_SECRET` fields with your Supabase credentials (found in the Supabase dashboard under project settings).
 
-## API
+#### Database
 
-- Run API server using `bun api`
+- To setup the database integration fill in the `DATABASE_URL` in the `.env` file with a PostgreSQL connection string.
 
-## Web
+```sh
+DATABASE_URL="postgres://postgres.<name>:<password>@<domain>:<port>/<database>"
+```
 
-> To compile this you must switch on the "web" feature of the `dioxus` package and remove the "mobile" one.
+- Install the Diesel CLI using `cargo install diesel_cli --no-default-features --features postgres`
+- Run the migrations using `bun migrate`.
 
-> Works only without `openssl` installed with the `vendor` option in the `Cargo.toml`.
+### API
 
-- Compile and run web app using `bun web`
+- Run the API server using `bun api`
 
-## Desktop
+### Web
 
-> Works with `openssl` installed with the `vendor` option and also without it (builds significantly faster both on Windows and Linux).
+> To compile this you must switch on the `"web"` feature of the`dioxus` package and remove the `"mobile"` one. Works only without`openssl` installed with the `vendored` option in the `Cargo.toml`.
 
-- Compile and run desktop app using `bun desktop`
+- Compile and run the web app using `bun web`
 
-## Android
+### Desktop
 
-> Works only with `openssl` installed with the `vendor` option (requires `perl` of the UNIX flavour to build it).
+> Works with `openssl` installed with the `vendored` option and also without it (builds significantly faster both on Windows and Linux).
 
-You have to create a `.cargo/config.toml` file in your home directory or in the project folder with the following content:
+- Compile and run the desktop app using `bun desktop`
+
+### Android
+
+> Works only with `openssl` installed with the `vendored` option (requires `perl` of the UNIX flavour to build it).
+
+You have to create a `.cargo/config.toml` file in the project folder with the following content to setup the linker for the Android targets:
 
 ```toml
 [target.aarch64-linux-android]
@@ -58,7 +67,7 @@ linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/ll
 linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android<api-version>-clang"
 ```
 
-Also you should setup all these environment variables in your terminal or in your `.bashrc` or `.zshrc` file:
+You should also setup all the below environment variables in your terminal or in your `.bashrc`/`.zshrc` file:
 
 ```sh
 # These two variables depend on the architecture of the device 
@@ -86,5 +95,5 @@ export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:\
     $ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH
 ```
 
-- Compile and run Android app using `bun android`
-- Connect to the local API server using `adb reverse tcp:8000 tcp:8000`
+- Compile and run the Android app using `bun android`
+- Connect to the local API server using `adb reverse tcp:8000 tcp:8000` from the local machine

@@ -3,10 +3,10 @@ use reqwest::Client;
 
 impl Supabase {
     pub fn new() -> Self {
-        let client: Client = Client::new();
-        let url: String = dotenv!("SUPABASE_URL").to_string();
-        let api_key: String = dotenv!("SUPABASE_API_KEY").to_string();
-        let jwt_secret: String = dotenv!("SUPABASE_JWT_SECRET").to_string();
+        let client = Client::new();
+        let url = dotenv!("SUPABASE_URL").to_string();
+        let api_key = dotenv!("SUPABASE_API_KEY").to_string();
+        let jwt_secret = dotenv!("SUPABASE_JWT_SECRET").to_string();
 
         Supabase {
             client,

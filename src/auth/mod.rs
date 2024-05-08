@@ -95,7 +95,10 @@ impl Supabase {
 
     pub async fn logout(&self) -> Result<Response, Error> {
         let request_url: String = format!("{}/auth/v1/logout", self.url);
-        let token = self.bearer_token.clone().unwrap();
+        let token = match self.bearer_token.clone() {
+            Some(token) => token,
+            None => "".to_string(),
+        };
         let response: Response = self
             .client
             .post(&request_url)

@@ -1,5 +1,7 @@
-use env_logger;
+#[macro_use]
+extern crate dotenvy_macro;
 
+mod db;
 mod handlers;
 mod routes;
 
