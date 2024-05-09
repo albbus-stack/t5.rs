@@ -19,18 +19,32 @@ An opinionated cross-platform full-stack application template developed with Rus
 
 #### Supabase Auth
 
-- To setup Supabase Auth copy the `.env.example` file to `.env` and fill in the `SUPABASE_URL`, `SUPABASE_API_KEY` and `SUPABASE_JWT_SECRET` fields with your Supabase credentials (found in the Supabase dashboard under project settings).
+- You should create a new project on [Supabase](https://supabase.io/), this will be used for the authentication and database integration.
+- To setup Supabase Auth copy the `.env.example` file in a new `.env` file and fill in the `SUPABASE_URL`, `SUPABASE_API_KEY` and `SUPABASE_JWT_SECRET` fields with your Supabase credentials (found in the Supabase dashboard under project settings).
 
 #### Database
 
-- To setup the database integration fill in the `DATABASE_URL` in the `.env` file with a PostgreSQL connection string:
+- To setup the database integration fill in the `DATABASE_URL` in the `.env` file with a PostgreSQL connection string (you can use the one provided by Supabase):
 
 ```sh
 DATABASE_URL="postgres://postgres.<name>:<password>@<domain>:<port>/<database>"
 ```
 
-- Install the Diesel CLI using `cargo install diesel_cli --no-default-features --features postgres`
-- Run the migrations using `bun migrate`
+- Install the Diesel CLI using `cargo install diesel_cli --no-default-features --features postgres`. You could run into some issues with the linking of the postgres library, in that case you should install `libpq-dev` package on your system and setup the correct `rustc` linker path search:
+
+```toml
+[target.x86_64-unknown-linux-gnu.pq]
+rustc-link-search = ["/path/to/postgres/15/lib"]
+rustc-link-lib = ["libpq"]
+
+# or for Windows
+
+[target.x86_64-pc-windows-msvc.pq]
+rustc-link-search = ["C:\\path\\to\\postgres\\15\\lib"]
+rustc-link-lib = ["libpq"]
+```
+
+- Run migrations using `bun migrate` or call directly the `diesel` CLI inside the `api` folder.
 
 ### API
 
@@ -68,7 +82,7 @@ linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/ll
 linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android<api-version>-clang"
 ```
 
-You should also setup all the below environment variables in your terminal or in your `.bashrc`/`.zshrc` file:
+You should also setup all the below environment variables in your terminal or in your `.bashrc`/`.zshrc` file (or in the system environment for Windows) to compile the Android app:
 
 ```sh
 # These two variables depend on the architecture of the device 
@@ -97,4 +111,5 @@ export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:\
 ```
 
 - Compile and run the Android app using `bun android`
-- Connect to the local API server using `adb reverse tcp:8000 tcp:8000` from the local machine
+- You can also debug the app wirelessly using `adb tcpip 5555` and `adb connect <device-ip>:5555` with the device temporarily connected via USB.
+- Connect to the local API server using `adb reverse tcp:8000 tcp:8000` from the local machine.
