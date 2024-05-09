@@ -87,14 +87,25 @@ pub enum Page {
     About,
 }
 
+#[derive(Clone, Copy)]
+pub struct Context {
+    supabase_client: Signal<Supabase>,
+    page_provider: Signal<Page>,
+}
+
 fn app() -> Element {
     let supabase_client = use_signal(Supabase::new);
 
     let page_provider: Signal<Page> = use_signal(|| Page::Home);
     let page_clone = page_provider.read().clone();
 
+    let context = Context {
+        supabase_client,
+        page_provider,
+    };
+
     match page_clone {
-        Page::Home => pages::home(supabase_client, page_provider),
-        Page::About => pages::about::about(page_provider),
+        Page::Home => pages::home::page(context),
+        Page::About => pages::about::page(context),
     }
 }
