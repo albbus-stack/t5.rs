@@ -1,21 +1,35 @@
 # t5.rs
 
-[![Rust](https://img.shields.io/badge/Rust-f75208?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
-[![Dioxus](https://img.shields.io/badge/Dioxus-00a8d6?style=for-the-badge&logo=rust)](https://dioxuslabs.com/)
-[![Diesel](https://img.shields.io/badge/Diesel-9b0000?style=for-the-badge&logo=rust&logoColor=white)](https://github.com/seanmonstar/warp)
-[![Supabase](https://img.shields.io/badge/Supabase-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.io/)
-[![Bun](https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun)](https://bun.sh/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-
-An opinionated cross-platform full-stack application template developed with Rust, Cargo Mobile 2, Dioxus, Warp, Diesel, PostgreSQL, Supabase Auth, Bun and TailwindCSS.
+<p align="center">
+    <a href="https://www.rust-lang.org/">
+        <img height="30" src="https://img.shields.io/badge/Rust-f75208?style=for-the-badge&logo=rust&logoColor=white">
+    </a>
+    <a href="https://dioxuslabs.com/">
+        <img height="30" src="https://img.shields.io/badge/Dioxus-00a8d6?style=for-the-badge&logo=rust">
+    </a>
+    <a href="https://diesel.rs/">
+        <img height="30" src="https://img.shields.io/badge/Diesel-9b0000?style=for-the-badge&logo=rust&logoColor=white">
+    </a>
+    <a href="https://supabase.io/">
+        <img height="30" src="https://img.shields.io/badge/Supabase-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white">
+    </a>
+    <a href="https://bun.sh/">
+        <img height="30" src="https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun">
+    </a>
+    <a href="https://tailwindcss.com/">
+        <img height="30" src="https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white">
+    </a>
+    </br> </br>
+    An opinionated cross-platform full-stack application template developed with Rust, Cargo Mobile 2, Dioxus, Warp, Diesel, PostgreSQL, Supabase Auth, Bun and TailwindCSS.
+    </br>
+    Inspired by an attempt at <span style="font-style: italic">rewriting in Rust</span> the <a href="https://github.com/timothymiller/t4-app">t4-app</a> project.
+ </p>
 
 ## Development
 
 - Install cargo-watch using `cargo install cargo-watch`
 - Install dependencies using `bun install`
 - Watch and build TailwindCSS using `bun tailwind`
-
-> All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by automatically copying the correct `Cargo.toml` file to the project root so *beware of running multiple platorms at the same time*.
 
 #### Supabase Auth
 
@@ -50,9 +64,11 @@ rustc-link-lib = ["libpq"]
 
 - Run the API server using `bun api`
 
+> All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by automatically copying the correct `Cargo.toml` file to the project root so **beware of running multiple platorms at the same time**.
+
 ### Web
 
-> To compile this you must switch on the `"web"` feature of the`dioxus` package and remove the `"mobile"` one. Works only without`openssl` installed with the `vendored` option in the `Cargo.toml`.
+> To compile this you must switch on the `web` feature of the `dioxus` package and remove the `mobile` one. Works only without `openssl` installed with the `vendored` option in the `Cargo.toml`.
 
 - Compile and run the web app using `bun web`
 
