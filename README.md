@@ -1,28 +1,16 @@
 # t5.rs
 
 <p align="center">
-    <a href="https://www.rust-lang.org/">
-        <img height="30" src="https://img.shields.io/badge/Rust-f75208?style=for-the-badge&logo=rust&logoColor=white">
-    </a>
-    <a href="https://dioxuslabs.com/">
-        <img height="30" src="https://img.shields.io/badge/Dioxus-00a8d6?style=for-the-badge&logo=rust">
-    </a>
-    <a href="https://diesel.rs/">
-        <img height="30" src="https://img.shields.io/badge/Diesel-9b0000?style=for-the-badge&logo=rust&logoColor=white">
-    </a>
-    <a href="https://supabase.io/">
-        <img height="30" src="https://img.shields.io/badge/Supabase-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white">
-    </a>
-    <a href="https://bun.sh/">
-        <img height="30" src="https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun">
-    </a>
-    <a href="https://tailwindcss.com/">
-        <img height="30" src="https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white">
-    </a>
+    <img height="30" src="https://img.shields.io/badge/Rust-f75208?style=for-the-badge&logo=rust&logoColor=white">&nbsp;
+    <img height="30" src="https://img.shields.io/badge/Dioxus-00a8d6?style=for-the-badge&logo=rust">&nbsp;
+    <img height="30" src="https://img.shields.io/badge/Diesel-9b0000?style=for-the-badge&logo=rust&logoColor=white">&nbsp;
+    <img height="30" src="https://img.shields.io/badge/Supabase-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white">&nbsp;
+    <img height="30" src="https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun">&nbsp;
+    <img height="30" src="https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white">
     </br> </br>
-    An opinionated cross-platform full-stack application template developed with Rust, Cargo Mobile 2, Dioxus, Warp, Diesel, PostgreSQL, Supabase Auth, Bun and TailwindCSS.
+    An opinionated cross-platform full-stack application template developed with Rust,</br> Cargo Mobile 2, Dioxus, Warp, Diesel, PostgreSQL, Supabase Auth, Bun and TailwindCSS.
     </br>
-    Inspired by an attempt at <span style="font-style: italic">rewriting in Rust</span> the <a href="https://github.com/timothymiller/t4-app">t4-app</a> project.
+    Inspired by an attempt at <i>rewriting in Rust</i> the <a href="https://github.com/timothymiller/t4-app">t4-app</a> project.
  </p>
 
 ## Development
