@@ -16,12 +16,12 @@
 ## Development
 
 - Install cargo-watch using `cargo install cargo-watch`
-- Install dependencies using `bun install`
+- Install `@material-tailwind/html` using `bun install`
 - Watch and build TailwindCSS using `bun tailwind`
 
 #### Supabase Auth
 
-- You should create a new project on [Supabase](https://supabase.io/), this will be used for the authentication and database integration.
+- Create a new project on [Supabase](https://supabase.io/), this will be used for authentication and database integration.
 - To setup Supabase Auth copy the `.env.example` file in a new `.env` file and fill in the `SUPABASE_URL`, `SUPABASE_API_KEY` and `SUPABASE_JWT_SECRET` fields with your Supabase credentials (found in the Supabase dashboard under project settings).
 
 #### Database
@@ -32,7 +32,7 @@
 DATABASE_URL="postgres://postgres.<name>:<password>@<domain>:<port>/<database>"
 ```
 
-- Install the Diesel CLI using `cargo install diesel_cli --no-default-features --features postgres`. You could run into some issues with the linking of the postgres library, in that case you should install `libpq-dev` package on your system and setup the correct `rustc` linker path search:
+- Install the Diesel CLI using `cargo install diesel_cli --no-default-features --features postgres`. You could run into some issues linking the postgres library, in that case you should install the `libpq-dev` package (or [Postgres](https://www.postgresql.org/download/windows/) for Windows) on your system and setup the correct `rustc` linker path search:
 
 ```toml
 [target.x86_64-unknown-linux-gnu.pq]
@@ -97,7 +97,7 @@ export API=33
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 export ANDROID_HOME=$HOME/android
 export ANDROID_SDK_ROOT=$ANDROID_HOME
-export NDK_HOME=$ANDROID_HOME/ndk/26.3.11579264
+export NDK_HOME=$ANDROID_HOME/ndk/<your-ndk-version>
 export ANDROID_NDK_HOME=$NDK_HOME
 
 export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
@@ -115,5 +115,5 @@ export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:\
 ```
 
 - Compile and run the Android app using `bun android`
-- You can also debug the app wirelessly using `adb tcpip 5555` and `adb connect <device-ip>:5555` with the device temporarily connected via USB.
+- You can also debug the app wirelessly using `adb tcpip 5555` and `adb connect <device-ip>:5555` with the device temporarily connected via USB (this works great on WSL).
 - Connect to the local API server using `adb reverse tcp:8000 tcp:8000` from the local machine.
