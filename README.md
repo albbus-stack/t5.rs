@@ -8,6 +8,8 @@
     <img height="30" src="https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun">&nbsp;
     <img height="30" src="https://img.shields.io/badge/Tailwind%20CSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white">
     </br> </br>
+    <img width="90%" src="https://github.com/albbus-stack/t5.rs/assets/57916483/481515a9-e6e6-4293-b649-58238e2707a2">
+    </br> </br>
     An opinionated cross-platform full-stack application template developed with Rust,</br> Cargo Mobile 2, Dioxus, Warp, Diesel, PostgreSQL, Supabase Auth, Bun and TailwindCSS.
     </br>
     Inspired by an attempt at <i>rewriting in Rust</i> the <a href="https://github.com/timothymiller/t4-app">t4-app</a> project.
