@@ -6,7 +6,7 @@
     <img height="30" src="https://img.shields.io/badge/Diesel-9b0000?style=for-the-badge&logo=rust&logoColor=white">&nbsp;
     <img height="30" src="https://img.shields.io/badge/Supabase-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white">&nbsp;
     <img height="30" src="https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun">&nbsp;
-    <img height="30" src="https://img.shields.io/badge/TailwindCSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white">
+    <img height="30" src="https://img.shields.io/badge/Tailwind%20CSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white">
     </br> </br>
     An opinionated cross-platform full-stack application template developed with Rust,</br> Cargo Mobile 2, Dioxus, Warp, Diesel, PostgreSQL, Supabase Auth, Bun and TailwindCSS.
     </br>
@@ -50,7 +50,7 @@ rustc-link-lib = ["libpq"]
 
 ### API
 
-- Run the API server using `bun api`
+- Run the API server using `bun api` (or `cargo run` inside the `api` folder).
 
 > All the below notes on various package versions and features are handled by the `bun web`, `bun android`, and `bun desktop` commands by automatically copying the correct `Cargo.toml` file to the project root so **beware of running multiple platorms at the same time**.
 
@@ -58,13 +58,13 @@ rustc-link-lib = ["libpq"]
 
 > To compile this you must switch on the `web` feature of the `dioxus` package and remove the `mobile` one. Works only without `openssl` installed with the `vendored` option in the `Cargo.toml`.
 
-- Compile and run the web app using `bun web`
+- Compile and run the web app using `bun web` (or `dx serve`).
 
 ### Desktop
 
 > Works with `openssl` installed with the `vendored` option and also without it (builds significantly faster both on Windows and Linux).
 
-- Compile and run the desktop app using `bun desktop`
+- Compile and run the desktop app using `bun desktop` (or `dx serve --platform desktop`).
 
 ### Android
 
@@ -114,6 +114,6 @@ export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:\
     $ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH
 ```
 
-- Compile and run the Android app using `bun android`
+- Compile and run the Android app using `bun android` (or `cargo android run`).
 - You can also debug the app wirelessly using `adb tcpip 5555` and `adb connect <device-ip>:5555` with the device temporarily connected via USB (this works great on WSL).
 - Connect to the local API server using `adb reverse tcp:8000 tcp:8000` from the local machine.
