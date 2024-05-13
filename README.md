@@ -34,7 +34,7 @@
 DATABASE_URL="postgres://postgres.<name>:<password>@<domain>:<port>/<database>"
 ```
 
-- Install the Diesel CLI using `cargo install diesel_cli --no-default-features --features postgres`. You could run into some issues linking the postgres library, in that case you should install the `libpq-dev` package (or [Postgres](https://www.postgresql.org/download/windows/) for Windows) on your system and setup the correct `rustc` linker path search:
+- Install the Diesel CLI using `cargo install diesel_cli --no-default-features --features postgres`. You could run into some issues linking the postgres library, in that case you should install the `libpq-dev` package (or [Postgres](https://www.postgresql.org/download/windows/) for Windows) on your system and setup the correct `rustc` linker path search in the `.cargo/config.toml` file:
 
 ```toml
 [target.x86_64-unknown-linux-gnu.pq]
@@ -72,7 +72,7 @@ rustc-link-lib = ["libpq"]
 
 > Works only with `openssl` installed with the `vendored` option (requires `perl` of the UNIX flavour to build it).
 
-You have to create a `.cargo/config.toml` file in the project folder with the following content to setup the linker for the Android targets:
+- You have to create a `.cargo/config.toml` file in the project folder with the following content to setup the linker for the Android targets:
 
 ```toml
 [target.aarch64-linux-android]
@@ -88,7 +88,7 @@ linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/ll
 linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android<api-version>-clang"
 ```
 
-You should also setup all the below environment variables in your terminal or in your `.bashrc`/`.zshrc` file (or in the system environment for Windows) to compile the Android app:
+- You should also setup all the below environment variables in your terminal or in your `.bashrc`/`.zshrc` file (or in the system environment for Windows) to compile the Android app:
 
 ```sh
 # These two variables depend on the architecture of the device 
