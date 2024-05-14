@@ -2,7 +2,8 @@ use crate::ui::*;
 use crate::{get_head, Context, Page};
 use dioxus::prelude::*;
 
-pub fn page(mut context: Context) -> Element {
+#[component]
+pub fn AboutPage(mut context: Context) -> Element {
     rsx! {
         {get_head()},
         body {

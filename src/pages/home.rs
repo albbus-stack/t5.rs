@@ -2,7 +2,8 @@ use crate::ui::*;
 use crate::{api, get_head, Context, Page};
 use dioxus::prelude::*;
 
-pub fn page(mut context: Context) -> Element {
+#[component]
+pub fn HomePage(mut context: Context) -> Element {
     let mut email = use_signal(|| "".to_string());
     let mut password = use_signal(|| "".to_string());
 
