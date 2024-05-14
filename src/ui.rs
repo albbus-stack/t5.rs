@@ -1,37 +1,41 @@
 use dioxus::prelude::*;
 
+#[derive(PartialEq, Clone, Copy)]
 pub enum Variant {
     Primary,
     Secondary,
     Neutral,
 }
 
-pub fn text_button(
-    text: &str,
-    onclick: impl FnMut(Event<MouseData>) + 'static,
-    class: &str,
-    variant: Variant,
-) -> Element {
-    button(
-        rsx!({ text }),
-        onclick,
-        &["py-3 px-6", class].join(" "),
-        variant,
-    )
+#[derive(PartialEq, Props, Clone)]
+pub struct ButtonProps {
+    pub text: String,
+    pub onclick: EventHandler<MouseEvent>,
+    pub class: String,
+    pub variant: Variant,
 }
 
-pub fn button(
-    text: Element,
-    onclick: impl FnMut(Event<MouseData>) + 'static,
-    class: &str,
-    variant: Variant,
-) -> Element {
+#[component]
+pub fn TextButton(props: ButtonProps) -> Element {
+    rsx! {
+        Button {
+            text: props.text,
+            onclick: props.onclick,
+            class: &["py-3 px-6", &props.class].join(" "),
+            variant: props.variant
+        }
+    }
+}
+
+#[component]
+pub fn Button(props: ButtonProps) -> Element {
+    let onclick = props.onclick;
     rsx! {
         button {
             "data-ripple-dark": "true",
             class: [
                 "select-none rounded-lg text-center p-1 px-2 align-middle font-sans text-xs font-bold uppercase shadow-md transition-all hover:shadow-lg disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none",
-                match variant {
+                match props.variant {
                     Variant::Primary => {
                         "bg-blue-500 shadow-blue-500/20 hover:shadow-blue-500/30 text-white"
                     }
@@ -42,17 +46,24 @@ pub fn button(
                         "bg-gray-100 shadow-gray-200/10 hover:shadow-gray-200/20 text-gray-900"
                     }
                 },
-                class,
+                &props.class,
             ]
                 .join(" "),
-            onclick: onclick,
-            {text}
+            onclick: move |evt| onclick.clone().call(evt),
+            {props.text}
         }
     }
 }
 
-pub fn icon(name: &str, class: &str) -> Element {
+#[derive(PartialEq, Props, Clone)]
+pub struct IconProps {
+    pub name: String,
+    pub class: String,
+}
+
+#[component]
+pub fn Icon(props: IconProps) -> Element {
     rsx! {
-        span { class: ["material-icons", class].join(" "), {name} }
+        span { class: ["material-icons", &props.class].join(" "), {props.name.clone()} }
     }
 }

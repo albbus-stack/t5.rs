@@ -1,4 +1,5 @@
-use crate::{api, get_head, ui, Context, Page};
+use crate::ui::*;
+use crate::{api, get_head, Context, Page};
 use dioxus::prelude::*;
 
 pub fn page(mut context: Context) -> Element {
@@ -85,16 +86,21 @@ pub fn page(mut context: Context) -> Element {
                         oninput: move |event| password.set(event.value())
                     }
                     div { class: "flex gap-2 mt-2",
-                        {ui::text_button("Sign in", sign_in, "", ui::Variant::Neutral)},
-                        {ui::text_button("Sign up", sign_up, "", ui::Variant::Primary)},
-                        {ui::text_button("Logout", sign_out, "", ui::Variant::Secondary)}
+                        TextButton { text: "Sign in", onclick: sign_in, class: "", variant: Variant::Neutral }
+                        TextButton { text: "Sign up", onclick: sign_up, class: "", variant: Variant::Primary }
+                        TextButton { text: "Logout", onclick: sign_out, class: "", variant: Variant::Secondary }
                     }
                     span { class: "w-full break-all mt-2", {auth_output.read().clone()} }
                 }
                 {api_response()},
-                {ui::text_button("About Page", move |_| {
-                    context.page_provider.set(Page::About);
-                }, "mt-5", ui::Variant::Neutral)}
+                TextButton {
+                    text: "About Page",
+                    onclick: move |_| {
+                        context.page_provider.set(Page::About);
+                    },
+                    class: "mt-5",
+                    variant: Variant::Neutral
+                }
             }
         }
     }

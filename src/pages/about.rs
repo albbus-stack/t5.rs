@@ -1,4 +1,5 @@
-use crate::{get_head, ui, Context, Page};
+use crate::ui::*;
+use crate::{get_head, Context, Page};
 use dioxus::prelude::*;
 
 pub fn page(mut context: Context) -> Element {
@@ -10,9 +11,14 @@ pub fn page(mut context: Context) -> Element {
                 p { class: "text-center px-10",
                     "An opinionated cross-platform full-stack application template developed with Rust, Cargo Mobile 2, Dioxus, Warp, Diesel, PostgreSQL, Supabase Auth, Bun and TailwindCSS."
                 }
-                {ui::text_button("Home Page", move |_| {
-                    context.page_provider.set(Page::Home);
-                }, "mt-5", ui::Variant::Neutral)}
+                TextButton {
+                    text: "Home Page",
+                    onclick: move |_| {
+                        context.page_provider.set(Page::Home);
+                    },
+                    class: "mt-5",
+                    variant: Variant::Neutral
+                }
             }
         }
     }
