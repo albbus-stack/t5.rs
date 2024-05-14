@@ -5,6 +5,9 @@ use anyhow::Result;
 use auth::Supabase;
 use dioxus::prelude::*;
 
+use pages::about::*;
+use pages::home::*;
+
 mod api;
 mod auth;
 mod pages;
@@ -87,7 +90,7 @@ pub enum Page {
     About,
 }
 
-#[derive(Clone, Copy)]
+#[derive(PartialEq, Clone, Copy)]
 pub struct Context {
     supabase_client: Signal<Supabase>,
     page_provider: Signal<Page>,
@@ -104,8 +107,14 @@ fn app() -> Element {
         page_provider,
     };
 
-    match page_clone {
-        Page::Home => pages::home::page(context),
-        Page::About => pages::about::page(context),
+    {
+        match page_clone {
+            Page::Home => rsx! {
+                HomePage { context }
+            },
+            Page::About => rsx! {
+                AboutPage { context }
+            },
+        }
     }
 }

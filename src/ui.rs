@@ -1,29 +1,34 @@
 use dioxus::prelude::*;
 
+#[derive(PartialEq, Clone, Copy)]
 pub enum Variant {
     Primary,
     Secondary,
     Neutral,
 }
 
-pub fn text_button(
-    text: &str,
-    onclick: impl FnMut(Event<MouseData>) + 'static,
-    class: &str,
+#[component]
+pub fn TextButton(
+    text: String,
+    onclick: EventHandler<MouseEvent>,
+    class: String,
     variant: Variant,
 ) -> Element {
-    button(
-        rsx!({ text }),
-        onclick,
-        &["py-3 px-6", class].join(" "),
-        variant,
-    )
+    rsx! {
+        Button {
+            text,
+            onclick,
+            class: &["py-3 px-6", &class].join(" "),
+            variant
+        }
+    }
 }
 
-pub fn button(
-    text: Element,
-    onclick: impl FnMut(Event<MouseData>) + 'static,
-    class: &str,
+#[component]
+pub fn Button(
+    text: String,
+    onclick: EventHandler<MouseEvent>,
+    class: String,
     variant: Variant,
 ) -> Element {
     rsx! {
@@ -42,17 +47,18 @@ pub fn button(
                         "bg-gray-100 shadow-gray-200/10 hover:shadow-gray-200/20 text-gray-900"
                     }
                 },
-                class,
+                &class,
             ]
                 .join(" "),
-            onclick: onclick,
+            onclick: move |evt| onclick.call(evt),
             {text}
         }
     }
 }
 
-pub fn icon(name: &str, class: &str) -> Element {
+#[component]
+pub fn Icon(name: String, class: String) -> Element {
     rsx! {
-        span { class: ["material-icons", class].join(" "), {name} }
+        span { class: ["material-icons", &class].join(" "), {name} }
     }
 }
