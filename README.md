@@ -17,7 +17,9 @@
 
 ## Development
 
+- Install cargo-mobile2 using `cargo install --git https://github.com/tauri-apps/cargo-mobile2`
 - Install cargo-watch using `cargo install cargo-watch`
+- Install bun using `curl -fsSL https://bun.sh/install | bash` or `powershell -c "irm bun.sh/install.ps1 | iex"`
 - Install `@material-tailwind/html` using `bun install`
 - Watch and build TailwindCSS using `bun tailwind`
 
