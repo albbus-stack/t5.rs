@@ -54,18 +54,11 @@ rustc-link-lib = ["libpq"]
 
 ### Supabase Storage
 
-- To setup Supabase Storage you should create a new bucket in the Supabase dashboard (e.g. `images`) and upload a file to it (e.g. `t5.png`). The example image is instantiated as follows inside the `about` page:
+- To setup Supabase Storage you should create two new buckets in the Supabase dashboard (e.g. a private bucket `images` and a public one `public-images`) and upload a file to them (e.g. `t5.png`).
 
-```rust
-let image_url = format!(
-    "{}/storage/v1/object/public/images/t5.png",
-    dotenv!("SUPABASE_URL").to_string()
-);
+- Make sure to allow read and/or write access to the private bucket for authenticated users, using RLS as follows:
 
-rsx! {
-    img { "src": image_url }
-}
-```
+- The example images (both public and authed) are instantiated inside the [`about` page](https://github.com/albbus-stack/t5.rs/blob/master/src/pages/about.rs).
 
 ## Platforms
 

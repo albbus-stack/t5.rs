@@ -122,7 +122,7 @@ pub fn HomePage(mut context: Context) -> Element {
                         TextButton { text: "Sign up", onclick: sign_up, class: "", variant: Variant::Primary }
                         TextButton { text: "Logout", onclick: sign_out, class: "", variant: Variant::Secondary }
                     }
-                    span { class: "w-full break-all mt-2", {auth_output} }
+                    i { class: "w-full break-all mt-2", {auth_output} }
                 }
                 {api_response(context)},
                 TextButton {
@@ -139,19 +139,18 @@ pub fn HomePage(mut context: Context) -> Element {
 }
 
 fn api_response(context: Context) -> Element {
-    let post: Resource<std::prelude::v1::Result<common::Post, reqwest::Error>> =
-        use_resource(move || {
-            api::get_post(
-                context
-                    .supabase_client
-                    .read()
-                    .clone()
-                    .bearer_token
-                    .unwrap_or("".to_string())
-                    .clone(),
-                1,
-            )
-        });
+    let post: Resource<Result<common::Post, reqwest::Error>> = use_resource(move || {
+        api::get_post(
+            context
+                .supabase_client
+                .read()
+                .clone()
+                .bearer_token
+                .unwrap_or("".to_string())
+                .clone(),
+            1,
+        )
+    });
 
     rsx! {
         div { class: "text-center px-10",
