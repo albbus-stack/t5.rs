@@ -23,12 +23,12 @@
 - Install `@material-tailwind/html` using `bun install`
 - Watch and build TailwindCSS using `bun tailwind`
 
-#### Supabase Auth
+### Supabase Auth
 
 - Create a new project on [Supabase](https://supabase.io/), this will be used for authentication and database integration.
 - To setup Supabase Auth copy the `.env.example` file in a new `.env` file and fill in the `SUPABASE_URL`, `SUPABASE_API_KEY` and `SUPABASE_JWT_SECRET` fields with your Supabase credentials (found in the Supabase dashboard under project settings).
 
-#### Database
+### Database
 
 - To setup the database integration fill in the `DATABASE_URL` in the `.env` file with a PostgreSQL connection string (you can use the one provided by Supabase):
 
@@ -51,6 +51,23 @@ rustc-link-lib = ["libpq"]
 ```
 
 - Run migrations using `bun migrate` or call directly the `diesel` CLI inside the `api` folder.
+
+### Supabase Storage
+
+- To setup Supabase Storage you should create a new bucket in the Supabase dashboard (e.g. `images`) and upload a file to it (e.g. `t5.png`). The example image is instantiated as follows inside the `about` page:
+
+```rust
+let image_url = format!(
+    "{}/storage/v1/object/public/images/t5.png",
+    dotenv!("SUPABASE_URL").to_string()
+);
+
+rsx! {
+    img { "src": image_url }
+}
+```
+
+## Platforms
 
 ### API
 
