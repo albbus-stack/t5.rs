@@ -7,7 +7,13 @@ pub fn HomePage(mut context: Context) -> Element {
     let mut email = use_signal(|| "".to_string());
     let mut password = use_signal(|| "".to_string());
 
-    let mut auth_output = use_signal(|| "".to_string());
+    let mut auth_output =
+        use_signal(
+            || match context.supabase_client.read().clone().email.clone() {
+                Some(email) => format!("Logged in with {}", email),
+                None => "Logged out".to_string(),
+            },
+        );
 
     let sign_in = move |_| {
         spawn(async move {
@@ -20,36 +26,53 @@ pub fn HomePage(mut context: Context) -> Element {
                 .unwrap();
 
             let json_response: serde_json::Value = response.json().await.unwrap();
-            let access_token: &str = match json_response["access_token"].as_str() {
+            let access_token = match json_response["access_token"].as_str() {
                 Some(token) => token,
                 None => {
                     auth_output.set("Invalid credentials".to_string());
                     return;
                 }
             };
+            let refresh_token = json_response["refresh_token"].as_str().unwrap();
+
+            let email = json_response["user"]["email"].as_str().unwrap();
 
             let mut client_clone = context.supabase_client.read().clone();
-            client_clone.set_bearer_token(access_token.to_string());
+            client_clone.bearer_token = Some(access_token.to_string());
+            client_clone.refresh_token = Some(refresh_token.to_string());
+            client_clone.email = Some(email.to_string());
             context.supabase_client.set(client_clone);
 
-            auth_output.set(format!("Logged in with {}", email.read()));
+            auth_output.set(format!("Logged in with {}", email));
         });
     };
 
     let sign_up = move |_| {
         spawn(async move {
-            let result = context
+            let response = context
                 .supabase_client
                 .read()
                 .clone()
                 .signup_email_password(&email.read().clone(), &password.read().clone())
                 .await
-                .unwrap()
-                .text()
-                .await
                 .unwrap();
 
-            auth_output.set(result);
+            let json_response: serde_json::Value = response.json().await.unwrap();
+            let email: &str = match json_response["email"].as_str() {
+                Some(email) => email,
+                None => {
+                    auth_output.set(format!(
+                        "Error signin up: {}",
+                        json_response["msg"].as_str().unwrap()
+                    ));
+                    return;
+                }
+            };
+
+            auth_output.set(format!(
+                "Signed up {}, confirm this email and then sign in!",
+                email
+            ));
         });
     };
 
@@ -58,9 +81,17 @@ pub fn HomePage(mut context: Context) -> Element {
             let result = context.supabase_client.read().clone().logout().await;
 
             match result {
-                Ok(_) => auth_output.set("".to_string()),
+                Ok(_) => {
+                    let mut client_clone = context.supabase_client.read().clone();
+                    client_clone.bearer_token = None;
+                    client_clone.refresh_token = None;
+                    client_clone.email = None;
+                    context.supabase_client.set(client_clone);
+
+                    auth_output.set("Logged out".to_string());
+                }
                 Err(err) => {
-                    auth_output.set(format!("An error occurred while logging out: {}", err))
+                    auth_output.set(format!("An error occurred while logging out: {}", err));
                 }
             }
         });
@@ -91,15 +122,15 @@ pub fn HomePage(mut context: Context) -> Element {
                         TextButton { text: "Sign up", onclick: sign_up, class: "", variant: Variant::Primary }
                         TextButton { text: "Logout", onclick: sign_out, class: "", variant: Variant::Secondary }
                     }
-                    span { class: "w-full break-all mt-2", {auth_output.read().clone()} }
+                    span { class: "w-full break-all mt-2", {auth_output} }
                 }
-                {api_response()},
+                {api_response(context)},
                 TextButton {
                     text: "About Page",
                     onclick: move |_| {
                         context.page_provider.set(Page::About);
                     },
-                    class: "mt-5",
+                    class: "mt-6",
                     variant: Variant::Neutral
                 }
             }
@@ -107,9 +138,20 @@ pub fn HomePage(mut context: Context) -> Element {
     }
 }
 
-fn api_response() -> Element {
+fn api_response(context: Context) -> Element {
     let post: Resource<std::prelude::v1::Result<common::Post, reqwest::Error>> =
-        use_resource(move || api::get_post(1));
+        use_resource(move || {
+            api::get_post(
+                context
+                    .supabase_client
+                    .read()
+                    .clone()
+                    .bearer_token
+                    .unwrap_or("".to_string())
+                    .clone(),
+                1,
+            )
+        });
 
     rsx! {
         div { class: "text-center px-10",

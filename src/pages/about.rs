@@ -17,7 +17,7 @@ pub fn AboutPage(mut context: Context) -> Element {
                     onclick: move |_| {
                         context.page_provider.set(Page::Home);
                     },
-                    class: "mt-5",
+                    class: "mt-6",
                     variant: Variant::Neutral
                 }
             }

@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate dotenvy_macro;
 
+mod auth;
 mod db;
 mod handlers;
 mod routes;

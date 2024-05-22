@@ -8,6 +8,7 @@ pub fn routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejecti
         .with(
             warp::cors()
                 .allow_origin(dotenv!("APP_URL"))
+                .allow_header("authorization")
                 // Add other HTTP methods here
                 .allow_methods(vec!["GET"]),
         )
@@ -17,6 +18,7 @@ pub fn routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejecti
 // A route to handle GET requests for a specific post
 fn get_post() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path!("posts" / i32)
+        .and(warp::header::<String>("authorization"))
         .and(warp::get())
         .and_then(handlers::get_post)
 }
