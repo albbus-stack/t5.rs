@@ -30,8 +30,18 @@ jobs:
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
 
+      - name: Create .env file
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          API_URL: ${{ secrets.API_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
+          SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: echo "APP_URL=$APP_URL\nAPI_URL=$API_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL" > .env
+
       - name: Build
-        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --release && cp ./dist/index.html ./dist/404.html
+        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --release --platform web && cp ./dist/index.html ./dist/404.html
 
       - name: Deploy Project
         uses: JamesIves/github-pages-deploy-action@v4

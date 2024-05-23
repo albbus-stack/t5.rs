@@ -23,8 +23,10 @@ jobs:
           profile: minimal
           toolchain: stable
 
+      - uses: Swatinem/rust-cache@v2
+
       - name: Build
-        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && cargo build --release
+        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && cargo build --release --platform desktop
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
