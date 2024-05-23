@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>t5.rs</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="./out/tailwind.css">
+
+</head>
+<body>
+  <div id="main"></div>
+  <script type="module">
+    import init from "/./assets/dioxus/t5-rs.js";
+    init("/./assets/dioxus/t5-rs_bg.wasm").then(wasm => {
+      if (wasm.__wbindgen_start == undefined) {
+        wasm.main();
+      }
+    });
+  </script>
+  
+</body>
+</html>
