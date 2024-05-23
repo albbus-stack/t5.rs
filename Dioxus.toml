@@ -22,3 +22,6 @@ script = []
 [web.resource.dev]
 
 script = []
+
+[bundle]
+resources = ["main.css", "./out/tailwind.css"]
