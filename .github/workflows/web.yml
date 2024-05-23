@@ -56,9 +56,6 @@ jobs:
       - name: Build
         run: mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --release --platform web && cp ./dist/index.html ./dist/404.html
 
-      - name: Copy Jekyll config
-        run: cp jekyll.config.yml ./dist/_config.yml
-
       - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
