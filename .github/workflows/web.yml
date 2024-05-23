@@ -27,6 +27,16 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install Bun dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Generate TailwindCSS
+        run: bun build:tailwind
+
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
 
@@ -43,7 +53,7 @@ jobs:
       - name: Build
         run: mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --release --platform web && cp ./dist/index.html ./dist/404.html
 
-      - name: Deploy Project
+      - name: Deploy to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages

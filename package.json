@@ -6,6 +6,7 @@
     "desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx serve --platform desktop --hot-reload",
     "migrate": "cd api && diesel migration run",
     "tailwind": "bunx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch",
+    "build:tailwind": "bunx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css",
     "build:api": "cd api && cargo build --release",
     "build:web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --platform web --release",
     "build:android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release --split-per-abi",
