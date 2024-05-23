@@ -1,4 +1,4 @@
-name: Build Desktop (Linux)
+name: Build Desktop App (Linux)
 
 on:
   # push:

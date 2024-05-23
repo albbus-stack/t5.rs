@@ -1,4 +1,4 @@
-name: Build Desktop (Windows)
+name: Build Desktop App (Windows)
 
 on:
   # push:

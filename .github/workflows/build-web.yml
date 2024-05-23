@@ -1,4 +1,4 @@
-name: Build & Deploy Web App
+name: Build Web App
 
 on:
   # push:
@@ -8,9 +8,6 @@ on:
   #   branches:
   #     - main
   workflow_dispatch:
-
-permissions:
-  contents: write
 
 jobs:
   build:
@@ -28,9 +25,11 @@ jobs:
           target: wasm32-unknown-unknown
           override: true
 
-      - uses: Swatinem/rust-cache@v2
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
 
-      - uses: oven-sh/setup-bun@v1
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
@@ -43,6 +42,9 @@ jobs:
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
 
+      - name: Create .cargo/config.toml file
+        run: printf "[profile.release]\nopt-level = "z"\ndebug = false\nlto = true\ncodegen-units = 1\npanic = "abort"\nstrip = true\nincremental = false\n" > .cargo/config.toml
+
       - name: Create .env file
         env:
           API_URL: ${{ secrets.API_URL }}
@@ -54,13 +56,6 @@ jobs:
 
       - name: Build
         run: mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && cp Dioxus.pages.toml Dioxus.toml && dx build --release --platform web && cp ./dist/index.html ./dist/404.html
-
-      - name: Deploy to Github Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: ./dist
-          clean: false
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

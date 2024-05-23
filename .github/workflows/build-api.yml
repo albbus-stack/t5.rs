@@ -1,0 +1,51 @@
+name: Build API
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - "api/**"
+  # pull_request:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - "api/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Create .cargo/config.toml file
+        run: printf "[profile.release]\nopt-level = "z"\ndebug = false\nlto = true\ncodegen-units = 1\npanic = "abort"\nstrip = true\nincremental = false\n" > .cargo/config.toml
+
+      - name: Create .env file
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
+          SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: printf "APP_URL=$APP_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL\n" > .env
+
+      - name: Build
+        run: cd api && cargo build --release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: api
+          path: target/release/api

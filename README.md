@@ -154,7 +154,8 @@ incremental = false
 
 - Install the `flyctl` CLI using `curl -L https://fly.io/install.sh | sh` and login with your [Fly.io account](https://fly.io) using `fly auth login`.
 - Create a new Fly app inside the project folder using `fly launch` and following the prompts, using the existing `Dockerfile` and `fly.toml` files.
-- Deploy the api using `fly deploy` or `bun deploy:api`. You can then change the `API_URL` in the `.env` file to the one deployed by Fly.
+- Deploy the API using `fly deploy` or `bun deploy:api`. You can then change the `API_URL` in the `.env` file to the one deployed by Fly.
+- You can also deploy the API though Github Actions using the `./github/workflows/deploy-api.yml` workflow, adding to the repository secrets the `FLY_API_TOKEN` key, generated with `fly tokens create deploy -x 999999h`.
 
 ### Web
 
