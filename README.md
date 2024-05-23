@@ -6,7 +6,8 @@
     <img height="30" src="https://img.shields.io/badge/Diesel-9b0000?style=for-the-badge&logo=rust&logoColor=white">&nbsp;
     <img height="30" src="https://img.shields.io/badge/Supabase-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white">&nbsp;
     <img height="30" src="https://img.shields.io/badge/Bun-14151a?style=for-the-badge&logoColor=fbf0df&logo=bun">&nbsp;
-    <img height="30" src="https://img.shields.io/badge/Tailwind%20CSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white">
+    <img height="30" src="https://img.shields.io/badge/Tailwind%20CSS-38b2ac?style=for-the-badge&logo=tailwind-css&logoColor=white">&nbsp;
+    <img height="30" src="https://img.shields.io/badge/Fly.io-7c3aed?style=for-the-badge&logo=rust&logoColor=white">
     </br> </br>
     <img width="90%" src="https://github.com/albbus-stack/t5.rs/assets/57916483/481515a9-e6e6-4293-b649-58238e2707a2">
     </br> </br>
@@ -25,7 +26,7 @@
 
 ### Supabase Auth
 
-- Create a new project on [Supabase](https://supabase.io/), this will be used for authentication and database integration.
+- Create a new project on [Supabase](https://supabase.io/), this will be used for authentication, database integration & media storage.
 - To setup Supabase Auth copy the `.env.example` file in a new `.env` file and fill in the `SUPABASE_URL`, `SUPABASE_API_KEY` and `SUPABASE_JWT_SECRET` fields with your Supabase credentials (found in the Supabase dashboard under project settings).
 
 ### Database
@@ -58,7 +59,7 @@ rustc-link-lib = ["libpq"]
 
 - Make sure to allow read and/or write access to the private bucket for authenticated users, using Supabase RLS as follows:
 
-  <img src="https://github.com/albbus-stack/t5.rs/assets/57916483/c283ba4a-4b44-4a26-adfc-e2d8907a7f9c" width="70%">
+<img src="https://github.com/albbus-stack/t5.rs/assets/57916483/c283ba4a-4b44-4a26-adfc-e2d8907a7f9c" width="70%">
 
 - The example images (both public and authed) are instantiated inside the [`about` page](https://github.com/albbus-stack/t5.rs/blob/master/src/pages/about.rs).
 
@@ -133,3 +134,26 @@ export PATH=$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:\
 - Compile and run the Android app using `bun android` (or `cargo android run`).
 - You can also debug the app wirelessly using `adb tcpip 5555` and `adb connect <device-ip>:5555` with the device temporarily connected via USB (this works great on WSL).
 - Connect to the local API server using `adb reverse tcp:8000 tcp:8000` from the local machine.
+
+## Production
+
+- To produce optimized builds add the following code in the `.cargo/config.toml` file introduced above:
+
+```toml
+[profile.release]
+opt-level = "z"
+debug = false
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+incremental = false
+```
+
+### API
+
+- Install the `flyctl` CLI using `curl -L https://fly.io/install.sh | sh` and login with your [Fly.io account](https://fly.io) using `fly auth login`.
+- Create a new Fly app inside the project folder using `fly launch` and following the prompts, using the existing `Dockerfile` and `fly.toml` files.
+- Deploy the app using `fly deploy` or `bun deploy:api`.
+
+<!-- ### Web -->

@@ -16,13 +16,7 @@ pub async fn jwt_valid(jwt: &str) -> Result<Claims, jsonwebtoken::errors::Error>
     let decoded_token = decode::<Claims>(jwt, &decoding_key, &validation);
 
     match decoded_token {
-        Ok(token_data) => {
-            println!("Token is valid. {:?}", token_data.claims);
-            Ok(token_data.claims)
-        }
-        Err(err) => {
-            println!("Error decoding token: {:?}", err);
-            Err(err)
-        }
+        Ok(token_data) => Ok(token_data.claims),
+        Err(err) => Err(err),
     }
 }
