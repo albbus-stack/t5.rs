@@ -1,4 +1,4 @@
-name: Build Web
+name: Build & Deploy Web App
 
 on:
   # push:
@@ -22,12 +22,23 @@ jobs:
         with:
           profile: minimal
           toolchain: stable
+          target: wasm32-unknown-unknown
+          override: true
+
+      - uses: Swatinem/rust-cache@v2
 
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
 
       - name: Build
-        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --release
+        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx build --release && cp ./dist/index.html ./dist/404.html
+
+      - name: Deploy Project
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ./dist
+          clean: false
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
