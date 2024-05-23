@@ -154,6 +154,9 @@ incremental = false
 
 - Install the `flyctl` CLI using `curl -L https://fly.io/install.sh | sh` and login with your [Fly.io account](https://fly.io) using `fly auth login`.
 - Create a new Fly app inside the project folder using `fly launch` and following the prompts, using the existing `Dockerfile` and `fly.toml` files.
-- Deploy the app using `fly deploy` or `bun deploy:api`. You can then change the `API_URL` in the `.env` file to the one deployed by Fly.
+- Deploy the api using `fly deploy` or `bun deploy:api`. You can then change the `API_URL` in the `.env` file to the one deployed by Fly.
 
-<!-- ### Web -->
+### Web
+
+- To deploy the web app using Github Pages you have to add all the secrets in the repository settings (`APP_URL`, `API_URL`, `SUPABASE_URL`, `SUPABASE_API_KEY`, `SUPABASE_JWT_SECRET`, `DATABASE_URL`).
+- Configure the `.github/workflows/web.yaml` file to run on every push to the `main` branch or manually with the `workflow_dispatch` event.
