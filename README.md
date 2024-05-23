@@ -158,5 +158,6 @@ incremental = false
 
 ### Web
 
-- To deploy the web app using Github Pages you have to add all the secrets in the repository settings (`APP_URL`, `API_URL`, `SUPABASE_URL`, `SUPABASE_API_KEY`, `SUPABASE_JWT_SECRET`, `DATABASE_URL`).
+- To deploy the web app using Github Pages you have to add all the secrets in the repository settings (`APP_URL`, `API_URL`, `SUPABASE_URL`, `SUPABASE_API_KEY`, `SUPABASE_JWT_SECRET`, `DATABASE_URL`) and then in the Pages settings choose the `gh-pages` branch.
+- Change the `base` in the `vite.config.js` file to match the name of your repository.
 - Configure the `.github/workflows/web.yaml` file to run on every push to the `main` branch or manually with the `workflow_dispatch` event.
