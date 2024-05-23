@@ -1,16 +1,18 @@
 name: Deploy API
 
 on:
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - "api/**"
+  push:
+    branches:
+      - main
+    paths:
+      - "api/**"
+      - "common/**"
   # pull_request:
   #   branches:
   #     - main
   #   paths:
   #     - "api/**"
+  #     - "common/**"
   workflow_dispatch:
 
 jobs:

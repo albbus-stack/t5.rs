@@ -6,11 +6,13 @@ on:
   #     - main
   #   paths:
   #     - "api/**"
+  #     - "common/**"
   # pull_request:
   #   branches:
   #     - main
   #   paths:
   #     - "api/**"
+  #     - "common/**"
   workflow_dispatch:
 
 jobs:
