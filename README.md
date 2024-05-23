@@ -158,7 +158,7 @@ incremental = false
 
 ### Web
 
-- To deploy the web app using Github Pages you have to add all the secrets in the repository settings (`API_URL`, `SUPABASE_URL`, `SUPABASE_API_KEY`, `SUPABASE_JWT_SECRET`, `DATABASE_URL`) and then in the Pages settings choose the `gh-pages` branch.
+- To deploy the web app using Github Pages you have to add the following secrets in the repository settings: `API_URL`, `SUPABASE_URL`, `SUPABASE_API_KEY`, `SUPABASE_JWT_SECRET`, `DATABASE_URL`. In the pages settings choose the `gh-pages` branch. You should also set workflow permissions under the actions settings to `Read and write permissions`.
 - Change the `base_path` in the `Dioxus.pages.toml` file to match the name of your repository.
-- Remember to deploy your api with `APP_URL` set to your Github Pages domain otherwise CORS will fail.
-- Configure the `.github/workflows/web.yaml` file to run on every push to the `main` branch or manually with the `workflow_dispatch` event.
+- Remember to deploy your api with `APP_URL` set to your Github Pages domain (e.g. `https://albbus-stack.github.io`) otherwise there will be CORS errors.
+- Configure the `.github/workflows/web.yaml` file to deploy on every push to the `main` branch or manually with the `workflow_dispatch` event.
