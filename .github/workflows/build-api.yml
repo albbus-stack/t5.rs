@@ -30,7 +30,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: Create .cargo/config.toml file
-        run: mkdir .cargo && printf "[profile.release]\nopt-level = "z"\ndebug = false\nlto = true\ncodegen-units = 1\npanic = "abort"\nstrip = true\nincremental = false\n" > .cargo/config.toml
+        run: mkdir .cargo && printf "[profile.release]\nopt-level = \"z\"\ndebug = false\nlto = true\ncodegen-units = 1\npanic = \"abort\"\nstrip = true\nincremental = false\n" > .cargo/config.toml
 
       - name: Create .env file
         env:
