@@ -12,6 +12,7 @@ async fn main() {
 
     let routes = routes::routes();
 
+    println!("\nAPP_URL: {}", dotenv!("APP_URL"));
     println!("\n\x1b[1;32mServer started at http://localhost:8000\n\x1b[0m");
     warp::serve(routes).run(([0, 0, 0, 0], 8000)).await;
 }

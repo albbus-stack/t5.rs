@@ -8,6 +8,7 @@ asset_dir = "assets"
 [web.app]
 
 title = "t5.rs"
+base_path = "t5.rs"
 
 [web.watcher]
 
