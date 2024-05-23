@@ -11,8 +11,8 @@
 <body>
   <div id="main"></div>
   <script type="module">
-    import init from "/./assets/dioxus/t5-rs.js";
-    init("/./assets/dioxus/t5-rs_bg.wasm").then(wasm => {
+    import init from "/t5.rs/assets/dioxus/t5-rs.js";
+    init("/t5.rs/assets/dioxus/t5-rs_bg.wasm").then(wasm => {
       if (wasm.__wbindgen_start == undefined) {
         wasm.main();
       }
