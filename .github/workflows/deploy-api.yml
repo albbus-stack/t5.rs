@@ -3,13 +3,13 @@ name: Deploy API
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - "api/**"
       - "common/**"
   # pull_request:
   #   branches:
-  #     - main
+  #     - master
   #   paths:
   #     - "api/**"
   #     - "common/**"
