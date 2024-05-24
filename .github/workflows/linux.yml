@@ -55,6 +55,12 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: printf "API_URL=$API_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL\n" > .env
 
+      - name: Move icons
+        run: |
+          cp icons/32x32.png dist/resources/32x32.png
+          cp icons/128x128.png dist/resources/128x128.png
+          cp icons/128x128@2x.png dist/resources/128x128@2x.png
+
       - name: Build
         run: mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && WEBKIT_DISABLE_COMPOSITING_MODE=1 dx bundle --platform desktop --release
 
