@@ -55,8 +55,9 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: printf "API_URL=$API_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL\n" > .env
 
-      - name: Move icons
+      - name: Copy icons
         run: |
+          mkdir -p dist/resources
           cp icons/32x32.png dist/resources/32x32.png
           cp icons/128x128.png dist/resources/128x128.png
           cp icons/128x128@2x.png dist/resources/128x128@2x.png
@@ -68,4 +69,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux
-          path: dist/bundle/deb/**/*
+          path: dist/bundle/appimage/**/*
