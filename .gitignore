@@ -28,3 +28,4 @@ Cargo.toml.bak
 
 # Android signing
 *.keystore
+*.keystore.asc

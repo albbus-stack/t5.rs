@@ -1,4 +1,4 @@
-name: Build Android App
+name: Build Android App (.apk)
 
 on:
   # push:
@@ -14,8 +14,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-       - name: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
@@ -51,10 +60,21 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: printf "API_URL=$API_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL\n" > .env
 
-      # TODO: Sign the APKs using a keystore
-
       - name: Build
         run: mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release --split-per-abi
+
+      - name: Sign APKs with keystore
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEYSTORE_ALIAS: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
+        run: |
+          echo $ANDROID_KEYSTORE > release.keystore.asc
+          gpg -d --passphrase $ANDROID_KEYSTORE_PASSWORD --batch --yes release.keystore.asc > release.keystore
+          jarsigner -keystore release.keystore ./gen/android/app/build/outputs/apk/arm/release/app-arm-release-unsigned.apk $ANDROID_KEYSTORE_ALIAS
+          jarsigner -keystore release.keystore ./gen/android/app/build/outputs/apk/arm64/release/app-arm64-release-unsigned.apk $ANDROID_KEYSTORE_ALIAS
+          jarsigner -keystore release.keystore ./gen/android/app/build/outputs/apk/x86/release/app-x86-release-unsigned.apk $ANDROID_KEYSTORE_ALIAS
+          jarsigner -keystore release.keystore ./gen/android/app/build/outputs/apk/x86_64/release/app-x86_64-release-unsigned.apk $ANDROID_KEYSTORE_ALIAS
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
