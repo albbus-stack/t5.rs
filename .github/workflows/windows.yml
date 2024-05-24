@@ -47,8 +47,8 @@ jobs:
           SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
           SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: |
-          powershell -Command "Set-Content -Path .env -Value "API_URL=$env:API_URL`nSUPABASE_URL=$env:SUPABASE_URL`nSUPABASE_API_KEY=$env:SUPABASE_API_KEY`nSUPABASE_JWT_SECRET=$env:SUPABASE_JWT_SECRET`nDATABASE_URL=$env:DATABASE_URL""
+        shell: bash
+        run: printf "API_URL=$API_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL\n" > .env
 
       - name: Build
         run: mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx bundle --platform desktop --release
