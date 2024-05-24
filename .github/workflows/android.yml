@@ -34,11 +34,14 @@ jobs:
           target: wasm32-unknown-unknown
           override: true
 
-      - name: Install Cargo Mobile CLI
-        run: cargo install --git https://github.com/tauri-apps/cargo-mobile2
-
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
+
+      - name: Add Rust Android targets
+        run: rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+
+      - name: Install Cargo Mobile CLI
+        run: cargo install --git https://github.com/tauri-apps/cargo-mobile2
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v1
