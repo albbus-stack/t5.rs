@@ -1,4 +1,4 @@
-name: Build Desktop App (Linux)
+name: Build Desktop App (Linux - deb)
 
 on:
   # push:
@@ -66,4 +66,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux
-          path: dist/bundle/appimage/**/*
+          path: dist/bundle/deb/**/*

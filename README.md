@@ -173,10 +173,11 @@ DATABASE_URL
 - To deploy the web app using Github Pages you have to choose in the repository settings under Pages the `gh-pages` branch. You should also set workflow permissions under the Actions settings to `Read and write permissions`.
 - Change the `base_path` in the `Dioxus.pages.toml` file to match the name of your repository.
 - Remember to deploy your api with `APP_URL` set to your Github Pages domain (e.g. `https://albbus-stack.github.io`) otherwise there will be CORS errors.
-- Configure the `.github/workflows/deploy-web.yaml` workflow to deploy on every push to the `main` branch or manually with the `workflow_dispatch` event.
+- Configure the `.github/workflows/deploy-web.yaml` workflow to deploy on every push to the `master` branch or manually with the `workflow_dispatch` event.
 
 ### Desktop
 
-> Github actions for the Windows, Linux and MacOS platforms are not yet functioning since `dx bundle` fails with various errors.
+> Github actions for the Linux and MacOS platforms are not yet functioning since `dx bundle` fails with various errors.
 
-- Currently `dx bundle` is being actively developed and is not yet ready for production use, so you should use `dx build` if bundling fails (this is not good since you need attach the `dist` folder to your release to include your assets).
+- For Windows you can configure the `.github/workflows/windows.yaml` workflow to build and upload the `.msi` installer in the action artifacts on every push to the `master` branch or manually with the `workflow_dispatch` event.
+- Currently `dx bundle` is being actively developed and is not yet ready for production use, so you should use `dx build` if bundling fails on other platforms (this is not good since you need attach the entire `dist` folder to your release build).
