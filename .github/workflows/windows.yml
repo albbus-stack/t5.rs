@@ -1,9 +1,9 @@
-name: Build Desktop App (Windows)
+name: Build Desktop App (Windows .msi)
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
   # pull_request:
   #   branches:
   #     - master
@@ -57,4 +57,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows
-          path: dist/bundle/msi/
+          path: dist/bundle/msi/**/*.msi

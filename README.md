@@ -177,7 +177,8 @@ DATABASE_URL
 
 ### Desktop
 
-> Github actions for the Linux and MacOS platforms are not yet functioning since `dx bundle` fails with various errors.
+> The Github action for MacOS is not yet implemented. Linux is barely functioning since the built bundle fails with various errors (e.g the installed .deb package searches assets in the folder where you call it and not globally). Windows is the only platform that works correctly for now.
 
 - For Windows you can configure the `.github/workflows/windows.yaml` workflow to build and upload the `.msi` installer in the action artifacts on every push to the `master` branch or manually with the `workflow_dispatch` event.
+- For Linux you can configure the `.github/workflows/linux.yaml` workflow to build and upload the `.deb` package along with the dist folder in the action artifacts on every push to the `master` branch or manually with the `workflow_dispatch` event.
 - Currently `dx bundle` is being actively developed and is not yet ready for production use, so you should use `dx build` if bundling fails on other platforms (this is not good since you need attach the entire `dist` folder to your release build).
