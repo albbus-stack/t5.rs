@@ -1,4 +1,4 @@
-name: Build Desktop App (Windows .msi)
+name: Build Windows App (.msi)
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Build Desktop App (Linux .deb)
+name: Build Linux App (.deb)
 
 on:
   push:
