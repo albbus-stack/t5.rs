@@ -199,3 +199,7 @@ jarsigner -keystore release-key.keystore ./path/to/apk alias_name
 ```
 
 - After signing an `.apk` you can install the app on your device physically or using `adb install ./path/to/apk` (you should sign and install an `.apk` compatible with the ABI of your device).
+
+<!-- WIP Github Action -->
+<!-- locally: gpg -c --armor release.keystore => ANDROID_KEYSTORE -->
+<!-- secrets: ANDROID_KEYSTORE, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEYSTORE_ALIAS -->

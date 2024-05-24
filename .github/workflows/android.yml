@@ -30,7 +30,6 @@ jobs:
         id: ndk
         with:
           ndk-version: r26d
-          link-to-sdk: true
           local-cache: true
 
       - name: Setup Rust
