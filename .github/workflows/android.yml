@@ -40,8 +40,8 @@ jobs:
       - name: Add Rust Android targets
         run: rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 
-      - name: Install Cargo Mobile CLI
-        run: cargo install --git https://github.com/tauri-apps/cargo-mobile2
+      - name: Install Cargo Mobile CLI & init
+        run: cargo install --git https://github.com/tauri-apps/cargo-mobile2 && cargo mobile init
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v1
@@ -53,9 +53,6 @@ jobs:
 
       - name: Generate TailwindCSS
         run: bun build:tailwind
-
-      - name: Install Dioxus CLI
-        run: cargo install dioxus-cli
 
       - name: Create .env file
         env:
