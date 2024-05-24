@@ -26,6 +26,11 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - uses: nttld/setup-ndk@v1
+        id: ndk
+        with:
+          ndk-version: r26d
+
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -41,6 +46,8 @@ jobs:
         run: rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 
       - name: Install Cargo Mobile CLI & init
+        env:
+          NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
         run: cargo install --git https://github.com/tauri-apps/cargo-mobile2 && cargo mobile init
 
       - name: Install Bun
@@ -64,6 +71,8 @@ jobs:
         run: printf "API_URL=$API_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL\n" > .env
 
       - name: Build
+        env:
+          NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
         run: mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release --split-per-abi
 
       - name: Sign APKs with keystore

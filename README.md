@@ -87,7 +87,7 @@ rustc-link-lib = ["libpq"]
 
 > Works only with `openssl` installed with the `vendored` option (requires `perl` of the UNIX flavour to build it).
 
-- You have to create a `.cargo/config.toml` file in the project folder with the following content to setup the linker for the Android targets:
+- You have to run `cargo mobile init` to generate only the `.cargo/config.toml` file and discard the other changes. If that errors out just create it with the following content to setup the linker for the Android targets:
 
 ```toml
 [target.aarch64-linux-android]
