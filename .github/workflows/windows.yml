@@ -1,9 +1,13 @@
 name: Build Desktop App (Windows .msi)
 
 on:
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "api/**"
+      - ".github/**"
+      - "README.md"
   # pull_request:
   #   branches:
   #     - master
