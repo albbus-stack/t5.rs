@@ -25,3 +25,6 @@ Cargo.toml.bak
 
 # Env
 .env
+
+# Android signing
+*.keystore

@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Rust
@@ -22,9 +22,36 @@ jobs:
         with:
           profile: minimal
           toolchain: stable
+          target: wasm32-unknown-unknown
+          override: true
 
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install Bun dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Generate TailwindCSS
+        run: bun build:tailwind
+
+      - name: Install Dioxus CLI
+        run: cargo install dioxus-cli
+
+      - name: Create .env file
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
+          SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: printf "API_URL=$API_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL\n" > .env
+
+      # TODO: Sign the APKs using a keystore
 
       - name: Build
         run: mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release --split-per-abi
@@ -33,4 +60,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: apk
-          path: target/aarch64-linux-android/release/t5-rs-desktop
+          path: gen/android/app/build/outputs/apk/**/*.apk

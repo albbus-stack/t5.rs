@@ -150,7 +150,7 @@ strip = true
 incremental = false
 ```
 
-- If you want to use Github Actions to deploy the app you should add the following secrets in the repository settings:
+- If you want to use Github Actions to deploy the app (API, Web & Desktop) you should add the following secrets in the repository settings:
 
 ```text
 API_URL (for the web app) -> update this after your API deployment
@@ -182,3 +182,20 @@ DATABASE_URL
 - For Windows you can configure the `.github/workflows/windows.yaml` workflow to build and upload the `.msi` installer in the action artifacts on every push to the `master` branch or manually with the `workflow_dispatch` event.
 - For Linux you can configure the `.github/workflows/linux.yaml` workflow to build and upload the `.deb` package along with the dist folder in the action artifacts on every push to the `master` branch or manually with the `workflow_dispatch` event.
 - Currently `dx bundle` is being actively developed and is not yet ready for production use, so you should use `dx build` if bundling fails on other platforms (this is not good since you need attach the entire `dist` folder to your release build).
+
+### Android
+
+- You can build the Android app using the `bun build:android` command, this will generate various `.apk` files in the `gen/android/app/build/outputs/apk/` subfolders for each ABI.
+- Generate a keystore file using the `keytool` CLI as follows:
+
+```sh
+keytool -genkey -keystore release-key.keystore -alias alias_name -keyalg RSA -validity 10000
+```
+
+- You can then sign each generated `.apk` file using the `jarsigner` CLI as follows:
+
+```sh
+jarsigner -keystore release-key.keystore ./path/to/apk alias_name
+```
+
+- After signing an `.apk` you can install the app on your device physically or using `adb install ./path/to/apk` (you should sign and install an `.apk` compatible with the ABI of your device).
