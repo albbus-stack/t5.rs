@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - "api/**"
-      - ".github/**"
-      - "README.md"
+    paths:
+      - "Cargo.web.toml"
+      - "Dioxus.pages.toml"
+      - "package.json"
+      - "src/**"
+      - "common/**"
+      - "assets/**"
   # pull_request:
   #   branches:
   #     - master

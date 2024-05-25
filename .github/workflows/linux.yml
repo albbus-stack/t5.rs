@@ -4,10 +4,14 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - "api/**"
-      - ".github/**"
-      - "README.md"
+    paths:
+      - "Cargo.desktop.toml"
+      - "Dioxus.toml"
+      - "package.json"
+      - "src/**"
+      - "common/**"
+      - "assets/**"
+      - "gen/bin/**"
   # pull_request:
   #   branches:
   #     - master
@@ -46,6 +50,9 @@ jobs:
 
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
+
+      - name: Create .cargo/config.toml file
+        run: mkdir .cargo && printf "[profile.release]\nopt-level = \"z\"\ndebug = false\nlto = true\ncodegen-units = 1\npanic = \"abort\"\nstrip = true\nincremental = false\n" > .cargo/config.toml
 
       - name: Create .env file
         env:

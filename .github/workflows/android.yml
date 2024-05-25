@@ -4,6 +4,15 @@ on:
   # push:
   #   branches:
   #     - master
+  #   paths:
+  #     - "Cargo.mobile.toml"
+  #     - "Dioxus.toml"
+  #     - "mobile.toml"
+  #     - "package.json"
+  #     - "src/**"
+  #     - "common/**"
+  #     - "assets/**"
+  #     - "gen/android/**"
   # pull_request:
   #   branches:
   #     - master
@@ -59,6 +68,9 @@ jobs:
 
       - name: Generate TailwindCSS
         run: bun build:tailwind
+
+      - name: Create .cargo/config.toml file
+        run: mkdir .cargo && printf "[profile.release]\nopt-level = \"z\"\ndebug = false\nlto = true\ncodegen-units = 1\npanic = \"abort\"\nstrip = true\nincremental = false\n" > .cargo/config.toml
 
       - name: Create .env file
         env:

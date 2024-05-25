@@ -5,14 +5,13 @@ on:
     branches:
       - master
     paths:
+      - "fly.toml"
+      - "Dockerfile"
       - "api/**"
       - "common/**"
   # pull_request:
   #   branches:
   #     - master
-  #   paths:
-  #     - "api/**"
-  #     - "common/**"
   workflow_dispatch:
 
 jobs:

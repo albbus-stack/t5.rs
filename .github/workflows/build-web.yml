@@ -4,6 +4,13 @@ on:
   # push:
   #   branches:
   #     - master
+  #   paths:
+  #     - "Cargo.web.toml"
+  #     - "Dioxus.pages.toml"
+  #     - "package.json"
+  #     - "src/**"
+  #     - "common/**"
+  #     - "assets/**"
   # pull_request:
   #   branches:
   #     - master
