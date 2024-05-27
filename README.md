@@ -83,6 +83,8 @@ rustc-link-lib = ["libpq"]
 
 > Works with `openssl` installed with the `vendored` option and also without it (builds significantly faster both on Windows and Linux).
 
+- You should install `llvm` on your system with `sudo apt install llvm-dev libclang-dev clang` on Linux, `winget install LLVM.LLVM` on Windows or `brew install llvm` on MacOS to compile the desktop app.
+- You will also need to setup the `LIBCLANG_PATH` environment variable for Windows to point to the LLVM installation folder (e.g. `C:\Program Files\LLVM\bin`)
 - Compile and run the desktop app using `bun desktop` (or `dx serve --platform desktop`).
 
 ### Android
@@ -203,5 +205,5 @@ jarsigner -keystore release.keystore ./path/to/apk alias_name
 - After signing an `.apk` you can install the app on your device physically or using `adb install ./path/to/apk` (you should sign and install an `.apk` compatible with the ABI of your device).
 
 <!-- WIP Github Action -->
-<!-- encrypt locally with password (ANDROID_KEYSTORE_PASSWORD): gpg -c --armor release.keystore => copy release-keystore.asc into ANDROID_KEYSTORE -->
+<!-- encrypt keystore locally with a password (ANDROID_KEYSTORE_PASSWORD): gpg -c --armor release.keystore => copy release-keystore.asc into ANDROID_KEYSTORE -->
 <!-- secrets: ANDROID_KEYSTORE, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEYSTORE_ALIAS -->
