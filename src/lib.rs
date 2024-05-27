@@ -1,6 +1,10 @@
 #[macro_use]
 extern crate dotenvy_macro;
 
+use crate::store::StoreImpl;
+use auth::User;
+use store::Store;
+
 use anyhow::Result;
 use auth::Supabase;
 use dioxus::prelude::*;
@@ -10,6 +14,8 @@ use pages::home::*;
 
 mod api;
 mod auth;
+mod store;
+
 mod pages;
 mod ui;
 
@@ -94,10 +100,21 @@ pub enum Page {
 pub struct Context {
     supabase_client: Signal<Supabase>,
     page_provider: Signal<Page>,
+    store: Signal<Store>,
 }
 
 fn app() -> Element {
-    let supabase_client = use_signal(Supabase::new);
+    let store: Signal<Store> = use_signal(|| store::new_store("com", "t5", "rs"));
+
+    let supabase_client = use_signal(|| {
+        if let Ok(user) = store.read().get::<User>("user") {
+            let mut client = Supabase::new();
+            client.user = Some(user);
+            client
+        } else {
+            Supabase::new()
+        }
+    });
 
     let page_provider: Signal<Page> = use_signal(|| Page::Home);
     let page_clone = page_provider.read().clone();
@@ -105,6 +122,7 @@ fn app() -> Element {
     let context = Context {
         supabase_client,
         page_provider,
+        store,
     };
 
     {

@@ -1,3 +1,5 @@
+use crate::auth::User;
+use crate::store::StoreImpl;
 use crate::ui::*;
 use crate::{api, get_head, Context, Page};
 use dioxus::prelude::*;
@@ -9,8 +11,8 @@ pub fn HomePage(mut context: Context) -> Element {
 
     let mut auth_output =
         use_signal(
-            || match context.supabase_client.read().clone().email.clone() {
-                Some(email) => format!("Logged in with {}", email),
+            || match context.supabase_client.read().clone().user.clone() {
+                Some(user) => format!("Logged in with {}", user.email),
                 None => "Logged out".to_string(),
             },
         );
@@ -38,10 +40,19 @@ pub fn HomePage(mut context: Context) -> Element {
             let email = json_response["user"]["email"].as_str().unwrap();
 
             let mut client_clone = context.supabase_client.read().clone();
-            client_clone.bearer_token = Some(access_token.to_string());
-            client_clone.refresh_token = Some(refresh_token.to_string());
-            client_clone.email = Some(email.to_string());
+            let user = User {
+                bearer_token: access_token.to_string(),
+                refresh_token: refresh_token.to_string(),
+                email: email.to_string(),
+            };
+            client_clone.user = Some(user.clone());
             context.supabase_client.set(client_clone);
+
+            context
+                .store
+                .write()
+                .set("user", &user)
+                .expect("failed to store user");
 
             auth_output.set(format!("Logged in with {}", email));
         });
@@ -83,9 +94,7 @@ pub fn HomePage(mut context: Context) -> Element {
             match result {
                 Ok(_) => {
                     let mut client_clone = context.supabase_client.read().clone();
-                    client_clone.bearer_token = None;
-                    client_clone.refresh_token = None;
-                    client_clone.email = None;
+                    client_clone.user = None;
                     context.supabase_client.set(client_clone);
 
                     auth_output.set("Logged out".to_string());
@@ -145,9 +154,10 @@ fn api_response(context: Context) -> Element {
                 .supabase_client
                 .read()
                 .clone()
-                .bearer_token
-                .unwrap_or("".to_string())
-                .clone(),
+                .user
+                .unwrap_or(User::default())
+                .clone()
+                .bearer_token,
             1,
         )
     });
