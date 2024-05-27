@@ -58,7 +58,7 @@ pub fn new_store(qualifier: &str, organization: &str, application: &str) -> Stor
     let path = binding.data_dir();
 
     #[cfg(target_os = "android")]
-    let path = Path::new(format!("/storage/emulated/0/Documents/{}/{}/{}", qualifier, organization, application));
+    let path = Path::new("/storage/emulated/0/Documents");
 
     Store::new(Location::CustomPath(path.as_ref()))
 }
