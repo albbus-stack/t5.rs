@@ -4,9 +4,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-License-Identifier: MIT
 
-package com.example.t5_rs
+package com.example.t5rs
 
-import com.example.t5_rs.RustWebView
+import com.example.t5rs.RustWebView
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle

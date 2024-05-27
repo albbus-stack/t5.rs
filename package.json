@@ -2,7 +2,7 @@
   "scripts": {
     "api": "cd api && cargo watch -w ./src/ -- cargo run",
     "web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx serve --hot-reload",
-    "android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo watch -w ./src/ -- cargo android run",
+    "android": "mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android run",
     "desktop": "mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && dx serve --platform desktop --hot-reload",
     "migrate": "cd api && diesel migration run",
     "tailwind": "bunx tailwindcss -i ./assets/main.css -o ./assets/out/tailwind.css --watch",

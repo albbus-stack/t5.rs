@@ -5,10 +5,10 @@ plugins {
 }
 
 android {
-    namespace="com.example.t5_rs"
+    namespace="com.example.t5rs"
     compileSdk = 33
     defaultConfig {
-        applicationId = "com.example.t5_rs"
+        applicationId = "com.example.t5rs"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
@@ -37,6 +37,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 

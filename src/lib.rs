@@ -24,7 +24,7 @@ fn init_logging() {
     android_logger::init_once(
         android_logger::Config::default()
             .with_max_level(log::LevelFilter::Debug)
-            .with_tag("rs-mobile"),
+            .with_tag("t5-rs"),
     );
 }
 
@@ -63,12 +63,12 @@ pub extern "C" fn start_app() {
     {
         tao::android_binding!(
             com_example,
-            t5_rs,
+            t5rs,
             WryActivity,
             wry::android_setup,
             _start_app
         );
-        wry::android_binding!(com_example, t5_rs);
+        wry::android_binding!(com_example, t5rs);
     }
 
     #[cfg(target_os = "ios")]
@@ -104,7 +104,7 @@ pub struct Context {
 }
 
 fn app() -> Element {
-    let store: Signal<Store> = use_signal(|| store::new_store("com", "t5", "rs"));
+    let store: Signal<Store> = use_signal(|| store::new_store("com", "example", "t5rs"));
 
     let supabase_client = use_signal(|| {
         if let Ok(user) = store.read().get::<User>("user") {

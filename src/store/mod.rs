@@ -10,6 +10,9 @@ mod rocks_db;
 #[cfg(not(target_arch = "wasm32"))]
 pub use rocks_db::Store;
 
+#[cfg(target_os = "android")]
+use std::path::Path;
+
 use serde::{de::DeserializeOwned, Serialize};
 
 pub enum Location<'a> {
@@ -47,8 +50,15 @@ pub fn new_store(qualifier: &str, organization: &str, application: &str) -> Stor
 
 #[cfg(not(target_arch = "wasm32"))]
 pub fn new_store(qualifier: &str, organization: &str, application: &str) -> Store {
+    #[cfg(not(target_os = "android"))]
     let binding = directories::ProjectDirs::from(qualifier, organization, application)
         .expect("No local storage");
+
+    #[cfg(not(target_os = "android"))]
     let path = binding.data_dir();
+
+    #[cfg(target_os = "android")]
+    let path = Path::new(format!("/storage/emulated/0/Documents/{}/{}/{}", qualifier, organization, application));
+
     Store::new(Location::CustomPath(path.as_ref()))
 }

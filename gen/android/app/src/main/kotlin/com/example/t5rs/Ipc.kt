@@ -6,7 +6,7 @@
 
 @file:Suppress("unused")
 
-package com.example.t5_rs
+package com.example.t5rs
 
 import android.webkit.*
 

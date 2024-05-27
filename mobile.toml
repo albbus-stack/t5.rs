@@ -1,6 +1,5 @@
 [app]
 name = "t5-rs"
 stylized-name = "t5.rs"
-domain = "example.com"
 template-pack = "wry"
-identifier = "example.com"
+identifier = "t5rs.example.com"
