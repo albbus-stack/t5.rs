@@ -52,6 +52,9 @@ jobs:
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
 
+      - name: Install development dependencies
+        run: sudo apt-get install -y build-essential
+
       - name: Add Rust Android targets
         run: rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 
