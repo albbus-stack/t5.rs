@@ -1,4 +1,5 @@
 use crate::api;
+use crate::auth::User;
 use crate::ui::*;
 use crate::{get_head, Context, Page};
 use dioxus::prelude::*;
@@ -11,8 +12,9 @@ pub fn AboutPage(mut context: Context) -> Element {
                 .supabase_client
                 .read()
                 .clone()
+                .user
+                .unwrap_or(User::default())
                 .bearer_token
-                .unwrap_or("".to_string())
                 .clone(),
             "images/t5.png".to_string(),
         )

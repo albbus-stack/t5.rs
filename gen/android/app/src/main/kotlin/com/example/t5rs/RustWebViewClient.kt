@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-License-Identifier: MIT
 
-package com.example.t5_rs
+package com.example.t5rs
 
 import android.webkit.*
 import android.content.Context

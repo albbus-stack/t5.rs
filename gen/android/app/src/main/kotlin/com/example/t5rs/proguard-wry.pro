@@ -4,25 +4,25 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-License-Identifier: MIT
 
--keep class com.example.t5_rs.* {
+-keep class com.example.t5rs.* {
   native <methods>;
 }
 
--keep class com.example.t5_rs.WryActivity {
+-keep class com.example.t5rs.WryActivity {
   public <init>(...);
 
-  void setWebView(com.example.t5_rs.RustWebView);
+  void setWebView(com.example.t5rs.RustWebView);
   java.lang.Class getAppClass(...);
   java.lang.String getVersion();
 }
 
--keep class com.example.t5_rs.Ipc {
+-keep class com.example.t5rs.Ipc {
   public <init>(...);
 
   @android.webkit.JavascriptInterface public <methods>;
 }
 
--keep class com.example.t5_rs.RustWebView {
+-keep class com.example.t5rs.RustWebView {
   public <init>(...);
 
   void loadUrlMainThread(...);
@@ -32,6 +32,6 @@
   void evalScript(...);
 }
 
--keep class com.example.t5_rs.RustWebChromeClient,com.example.t5_rs.RustWebViewClient {
+-keep class com.example.t5rs.RustWebChromeClient,com.example.t5rs.RustWebViewClient {
   public <init>(...);
 }

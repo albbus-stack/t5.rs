@@ -4,7 +4,7 @@
 
     <application android:hasCode="true" android:supportsRtl="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:theme="@style/AppTheme" android:extractNativeLibs="true">
 
-        <activity android:configChanges="orientation|keyboardHidden"        android:exported="true" android:screenOrientation="portrait" android:label="@string/app_name" android:name="com.example.t5_rs.MainActivity">
+        <activity android:configChanges="orientation|keyboardHidden"        android:exported="true" android:screenOrientation="portrait" android:label="@string/app_name" android:name="com.example.t5rs.MainActivity">
             <meta-data android:name="android.app.lib_name" android:value="t5_rs" />
             <meta-data android:name="android.app.func_name" android:value="ANativeActivity_onCreate" />
             <intent-filter>

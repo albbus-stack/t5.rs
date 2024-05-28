@@ -63,6 +63,11 @@ core-foundation = "0.9.3"
 dioxus-web = "0.5"
 wasm-logger = "0.2.0"
 console_error_panic_hook = "0.1.7"
+web-sys = { version = "0.3", default-features = false, features = [
+    "Storage",
+    "Window",
+] }
+thiserror = "1.0"
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 wry = "0.37"

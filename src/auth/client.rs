@@ -11,9 +11,7 @@ impl Supabase {
             client,
             url,
             api_key,
-            bearer_token: None,
-            refresh_token: None,
-            email: None,
+            user: None,
         }
     }
 }

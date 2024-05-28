@@ -3,14 +3,19 @@ use serde::{Deserialize, Serialize};
 
 mod client;
 
+#[derive(Clone, Debug, Serialize, Deserialize, Default)]
+pub struct User {
+    pub bearer_token: String,
+    pub refresh_token: String,
+    pub email: String,
+}
+
 #[derive(Clone, Debug)]
 pub struct Supabase {
     client: Client,
     url: String,
     api_key: String,
-    pub bearer_token: Option<String>,
-    pub refresh_token: Option<String>,
-    pub email: Option<String>,
+    pub user: Option<User>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -60,8 +65,8 @@ impl Supabase {
 
     // NOTE: This will fail unless you disable "Enable automatic reuse detection" in Supabase
     pub async fn refresh_session(&self) -> Result<Response, Error> {
-        let refresh_token = match self.refresh_token.clone() {
-            Some(token) => token,
+        let refresh_token = match self.user.clone() {
+            Some(user) => user.refresh_token,
             None => "".to_string(),
         };
         let request_url: String = format!("{}/auth/v1/token?grant_type=refresh_token", self.url);
@@ -80,8 +85,8 @@ impl Supabase {
 
     pub async fn logout(&self) -> Result<Response, Error> {
         let request_url: String = format!("{}/auth/v1/logout", self.url);
-        let token = match self.bearer_token.clone() {
-            Some(token) => token,
+        let token = match self.user.clone() {
+            Some(user) => user.bearer_token,
             None => "".to_string(),
         };
         let response: Response = self

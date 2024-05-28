@@ -1,6 +1,10 @@
 #[macro_use]
 extern crate dotenvy_macro;
 
+use crate::store::StoreImpl;
+use auth::User;
+use store::Store;
+
 use anyhow::Result;
 use auth::Supabase;
 use dioxus::prelude::*;
@@ -10,6 +14,8 @@ use pages::home::*;
 
 mod api;
 mod auth;
+mod store;
+
 mod pages;
 mod ui;
 
@@ -18,7 +24,7 @@ fn init_logging() {
     android_logger::init_once(
         android_logger::Config::default()
             .with_max_level(log::LevelFilter::Debug)
-            .with_tag("rs-mobile"),
+            .with_tag("t5-rs"),
     );
 }
 
@@ -57,12 +63,12 @@ pub extern "C" fn start_app() {
     {
         tao::android_binding!(
             com_example,
-            t5_rs,
+            t5rs,
             WryActivity,
             wry::android_setup,
             _start_app
         );
-        wry::android_binding!(com_example, t5_rs);
+        wry::android_binding!(com_example, t5rs);
     }
 
     #[cfg(target_os = "ios")]
@@ -94,10 +100,21 @@ pub enum Page {
 pub struct Context {
     supabase_client: Signal<Supabase>,
     page_provider: Signal<Page>,
+    store: Signal<Store>,
 }
 
 fn app() -> Element {
-    let supabase_client = use_signal(Supabase::new);
+    let store: Signal<Store> = use_signal(|| store::new_store("com.example.t5rs"));
+
+    let supabase_client = use_signal(|| {
+        if let Ok(user) = store.read().get::<User>("user") {
+            let mut client = Supabase::new();
+            client.user = Some(user);
+            client
+        } else {
+            Supabase::new()
+        }
+    });
 
     let page_provider: Signal<Page> = use_signal(|| Page::Home);
     let page_clone = page_provider.read().clone();
@@ -105,6 +122,7 @@ fn app() -> Element {
     let context = Context {
         supabase_client,
         page_provider,
+        store,
     };
 
     {
