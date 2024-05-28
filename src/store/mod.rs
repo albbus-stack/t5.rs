@@ -36,7 +36,7 @@ pub fn new_store(identifier: &str) -> Store {
     Store::new(Location::LocalStorage(identifier))
 }
 
-#[cfg(not(target_os = "android"))]
+#[cfg(not(any(target_os = "android", target_arch = "wasm32")))]
 fn get_desktop_path(identifier: &str) -> std::path::PathBuf {
     let [qualifier, organization, application] = identifier.split('.').collect::<Vec<&str>>()[..3] else {
         panic!("Invalid identifier");
