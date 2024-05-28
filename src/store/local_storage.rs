@@ -1,5 +1,13 @@
-use crate::store::{Location, PlatformDefault, StoreImpl};
+use crate::store::{Location, StoreImpl};
 use web_sys::wasm_bindgen;
+
+impl<'a> Location<'a> {
+    pub fn get_path(&self) -> &str {
+        match self {
+            Self::LocalStorage(path) => path,
+        }
+    }
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct LocalStorage {
@@ -37,15 +45,10 @@ impl LocalStorage {
             .expect("No local storage")
     }
 
-    pub fn new(constructor_bundle: Location) -> Self {
-        let Location::PlatformDefault(config) = constructor_bundle;
-        let PlatformDefault {
-            qualifier,
-            organization,
-            application,
-        } = config;
+    pub fn new(location: Location) -> Self {
+        let path = location.get_path();
         Self {
-            prefix: format!("{qualifier}.{organization}.{application}"),
+            prefix: path.to_string(),
         }
     }
 

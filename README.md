@@ -83,7 +83,8 @@ rustc-link-lib = ["libpq"]
 
 > Works with `openssl` installed with the `vendored` option and also without it (builds significantly faster both on Windows and Linux).
 
-- You should install `llvm` on your system with `sudo apt install llvm-dev libclang-dev clang` on Linux, `winget install LLVM.LLVM` on Windows or `brew install llvm` on MacOS to compile the desktop app.
+- Install all the necessary prerequisites for the `dioxus-cli`, you can find them [here](https://dioxuslabs.com/learn/0.5/getting_started).
+- You should install `llvm` on your system with `sudo apt install llvm-dev libclang-dev clang lib` on Linux, `winget install LLVM.LLVM` on Windows or `brew install llvm` on MacOS to compile the desktop app.
 - You will also need to setup the `LIBCLANG_PATH` environment variable for Windows to point to the LLVM installation folder (e.g. `C:\Program Files\LLVM\bin`)
 - Compile and run the desktop app using `bun desktop` (or `dx serve --platform desktop`).
 

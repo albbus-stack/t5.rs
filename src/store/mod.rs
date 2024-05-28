@@ -17,7 +17,7 @@ use serde::{de::DeserializeOwned, Serialize};
 
 pub enum Location<'a> {
     #[cfg(target_arch = "wasm32")]
-    PlatformDefault(&'a PlatformDefault),
+    LocalStorage(&'a str),
     #[cfg(not(target_arch = "wasm32"))]
     CustomPath(&'a std::path::Path),
 }
@@ -32,33 +32,36 @@ pub trait StoreImpl {
 }
 
 #[cfg(target_arch = "wasm32")]
-pub struct PlatformDefault {
-    qualifier: String,
-    organization: String,
-    application: String,
+pub fn new_store(identifier: &str) -> Store {
+    Store::new(Location::LocalStorage(identifier))
 }
 
-#[cfg(target_arch = "wasm32")]
-pub fn new_store(qualifier: &str, organization: &str, application: &str) -> Store {
-    let config = PlatformDefault {
-        qualifier: qualifier.to_string(),
-        organization: organization.to_string(),
-        application: application.to_string(),
+#[cfg(not(target_os = "android"))]
+fn get_desktop_path(identifier: &str) -> std::path::PathBuf {
+    let [qualifier, organization, application] = identifier.split('.').collect::<Vec<&str>>()[..3] else {
+        panic!("Invalid identifier");
     };
-    Store::new(Location::PlatformDefault(&config))
+
+    directories::ProjectDirs::from(qualifier, organization, application)
+        .expect("No local storage")
+        .data_dir()
+        .to_path_buf()
 }
+
+#[cfg(target_os = "android")]
+fn get_android_path(identifier: &str) -> std::path::PathBuf {
+    let path_str = &["/data/data/", identifier,"/db"].concat();
+    Path::new(path_str).to_path_buf()
+}
+
 
 #[cfg(not(target_arch = "wasm32"))]
-pub fn new_store(qualifier: &str, organization: &str, application: &str) -> Store {
+pub fn new_store(identifier: &str) -> Store {
     #[cfg(not(target_os = "android"))]
-    let binding = directories::ProjectDirs::from(qualifier, organization, application)
-        .expect("No local storage");
-
-    #[cfg(not(target_os = "android"))]
-    let path = binding.data_dir();
-
+    let path = get_desktop_path(identifier);
+    
     #[cfg(target_os = "android")]
-    let path = Path::new("/storage/emulated/0/Documents");
+    let path = get_android_path(identifier);
 
     Store::new(Location::CustomPath(path.as_ref()))
 }

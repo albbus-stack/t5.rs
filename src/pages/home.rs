@@ -52,7 +52,7 @@ pub fn HomePage(mut context: Context) -> Element {
                 .store
                 .write()
                 .set("user", &user)
-                .expect("failed to store user");
+                .expect("Failed to store user");
 
             auth_output.set(format!("Logged in with {}", email));
         });
@@ -96,6 +96,12 @@ pub fn HomePage(mut context: Context) -> Element {
                     let mut client_clone = context.supabase_client.read().clone();
                     client_clone.user = None;
                     context.supabase_client.set(client_clone);
+
+                    context
+                        .store
+                        .write()
+                        .clear()
+                        .expect("Failed to clear storage");
 
                     auth_output.set("Logged out".to_string());
                 }

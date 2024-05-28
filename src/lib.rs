@@ -104,7 +104,7 @@ pub struct Context {
 }
 
 fn app() -> Element {
-    let store: Signal<Store> = use_signal(|| store::new_store("com", "example", "t5rs"));
+    let store: Signal<Store> = use_signal(|| store::new_store("com.example.t5rs"));
 
     let supabase_client = use_signal(|| {
         if let Ok(user) = store.read().get::<User>("user") {

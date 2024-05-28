@@ -18,7 +18,7 @@ pub use RocksDB as Store;
 
 #[derive(thiserror::Error, Debug)]
 pub enum GetError {
-    #[error("Rocksdb error")]
+    #[error("RocksDB error")]
     Rocksdb(#[from] rocksdb::Error),
     #[error("MessagePack deserialization error")]
     MessagePack(#[from] rmp_serde::decode::Error),
