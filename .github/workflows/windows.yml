@@ -50,7 +50,7 @@ jobs:
         run: cargo install dioxus-cli
 
       - name: Copy Cargo.desktop.toml
-        run: mv Cargo.desktop.toml Cargo.toml
+        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml
 
       - name: Create .cargo/config.toml
         shell: bash
