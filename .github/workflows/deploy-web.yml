@@ -11,9 +11,6 @@ on:
       - "src/**"
       - "common/**"
       - "assets/**"
-  # pull_request:
-  #   branches:
-  #     - master
   workflow_dispatch:
 
 permissions:

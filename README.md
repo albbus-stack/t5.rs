@@ -52,6 +52,7 @@ rustc-link-lib = ["libpq"]
 ```
 
 - Run migrations using `bun migrate` or call directly the `diesel` CLI inside the `api` folder.
+- Database access is gated to authenticated users but you can change that easily in the `api/src/handlers.rs` file by removing the JWT verification.
 
 ### Supabase Storage
 

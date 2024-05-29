@@ -20,6 +20,7 @@ on:
 
 jobs:
   build:
+    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +40,24 @@ jobs:
         id: ndk
         with:
           ndk-version: r26d
+          add-to-path: true
+          link-to-sdk: true
           local-cache: true
+
+      - name: Setup NDK Environment Variables
+        env:
+          NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
+        run: |
+          echo "NDK_HOME=$NDK_HOME" >> $GITHUB_ENV
+          echo "ANDROID_NDK_HOME=$NDK_HOME" >> $GITHUB_ENV
+
+          echo "TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64" >> $GITHUB_ENV
+          echo "AR=$TOOLCHAIN/bin/llvm-ar" >> $GITHUB_ENV
+          echo "LD=$TOOLCHAIN/bin/ld" >> $GITHUB_ENV
+          echo "RANLIB=$TOOLCHAIN/bin/llvm-ranlib" >> $GITHUB_ENV
+          echo "STRIP=$TOOLCHAIN/bin/llvm-strip" >> $GITHUB_ENV
+
+          echo "PATH=$TOOLCHAIN/bin:$NDK_HOME:$PATH" >> $GITHUB_ENV
 
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
@@ -69,17 +87,20 @@ jobs:
       - name: Generate TailwindCSS
         run: bun build:tailwind
 
+      - name: Copy Cargo.mobile.toml
+        run: mv Cargo.mobile.toml Cargo.toml
+
       - name: Run cargo mobile init
         run: cargo mobile init
 
-      - name: Append release config to .cargo/config.toml file
+      - name: Append release config to .cargo/config.toml
         run: |
           { 
             cat .cargo/config.toml;
             printf "\n[profile.release]\nopt-level = \"z\"\ndebug = false\nlto = true\ncodegen-units = 1\npanic = \"abort\"\nstrip = true\nincremental = false\n";
-          } > .cargo/config.toml
+          } > .cargo/config.toml && cat .cargo/config.toml && ls -la $TOOLCHAIN/bin
 
-      - name: Create .env file
+      - name: Create .env
         env:
           API_URL: ${{ secrets.API_URL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -89,9 +110,7 @@ jobs:
         run: printf "API_URL=$API_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL\n" > .env
 
       - name: Build
-        env:
-          NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
-        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.mobile.toml Cargo.toml && cargo android apk build --release --split-per-abi
+        run: cargo android apk build --release --split-per-abi
 
       - name: Sign APKs with keystore
         env:
@@ -106,8 +125,13 @@ jobs:
           jarsigner -keystore release.keystore ./gen/android/app/build/outputs/apk/x86/release/app-x86-release-unsigned.apk $ANDROID_KEYSTORE_ALIAS
           jarsigner -keystore release.keystore ./gen/android/app/build/outputs/apk/x86_64/release/app-x86_64-release-unsigned.apk $ANDROID_KEYSTORE_ALIAS
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: apk
-          path: gen/android/app/build/outputs/apk/**/*.apk
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: apk
+      #     path: gen/android/app/build/outputs/apk/**/*.apk
+
+      # or Upload to a release
+
+      - name: Upload to release v1.0.0
+        run: gh release upload v1.0.0 ./gen/android/app/build/outputs/apk/**/*.apk --clobber

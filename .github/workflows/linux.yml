@@ -19,6 +19,7 @@ on:
 
 jobs:
   build:
+    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
@@ -35,7 +36,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Install development dependencies
-        run: sudo apt-get install -y build-essential libgtk-3-dev libjavascriptcoregtk-4.1-dev libsoup-3.0-dev libwebkit2gtk-4.1-dev libxdo-dev
+        run: sudo apt-get install -y libgtk-3-dev libjavascriptcoregtk-4.1-dev libsoup-3.0-dev libwebkit2gtk-4.1-dev libxdo-dev
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v1
@@ -51,10 +52,13 @@ jobs:
       - name: Install Dioxus CLI
         run: cargo install dioxus-cli
 
-      - name: Create .cargo/config.toml file
+      - name: Copy Cargo.desktop.toml
+        run: mv Cargo.desktop.toml Cargo.toml
+
+      - name: Create .cargo/config.toml
         run: mkdir .cargo && printf "[profile.release]\nopt-level = \"z\"\ndebug = false\nlto = true\ncodegen-units = 1\npanic = \"abort\"\nstrip = true\nincremental = false\n" > .cargo/config.toml
 
-      - name: Create .env file
+      - name: Create .env
         env:
           API_URL: ${{ secrets.API_URL }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -64,10 +68,15 @@ jobs:
         run: printf "API_URL=$API_URL\nSUPABASE_URL=$SUPABASE_URL\nSUPABASE_API_KEY=$SUPABASE_API_KEY\nSUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET\nDATABASE_URL=$DATABASE_URL\n" > .env
 
       - name: Build
-        run: mv Cargo.toml Cargo.toml.bak && cp Cargo.desktop.toml Cargo.toml && WEBKIT_DISABLE_COMPOSITING_MODE=1 dx bundle --platform desktop --release --package deb
+        run: WEBKIT_DISABLE_COMPOSITING_MODE=1 dx bundle --platform desktop --release --package deb
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux
-          path: dist/bundle/deb/**/*
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: linux
+      #     path: dist/bundle/deb/**/*
+
+      # or Upload to a release
+
+      - name: Upload to release v1.0.0
+        run: gh release upload v1.0.0 ./dist/bundle/deb/**/*.deb --clobber
