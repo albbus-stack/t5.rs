@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "api": "cd api && cargo watch -w ./src/ -- cargo run",
     "web": "mv Cargo.toml Cargo.toml.bak && cp Cargo.web.toml Cargo.toml && dx serve --hot-reload",
