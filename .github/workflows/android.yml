@@ -48,16 +48,18 @@ jobs:
         env:
           NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
         run: |
-          echo "NDK_HOME=$NDK_HOME" >> $GITHUB_ENV
-          echo "ANDROID_NDK_HOME=$NDK_HOME" >> $GITHUB_ENV
+          export ANDROID_NDK_HOME=$NDK_HOME
+          export TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64
 
-          echo "TOOLCHAIN=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64" >> $GITHUB_ENV
+          echo "NDK_HOME=$NDK_HOME" >> $GITHUB_ENV
+          echo "ANDROID_NDK_HOME=$ANDROID_NDK_HOME" >> $GITHUB_ENV
+          echo "TOOLCHAIN=$TOOLCHAIN" >> $GITHUB_ENV
           echo "AR=$TOOLCHAIN/bin/llvm-ar" >> $GITHUB_ENV
           echo "LD=$TOOLCHAIN/bin/ld" >> $GITHUB_ENV
           echo "RANLIB=$TOOLCHAIN/bin/llvm-ranlib" >> $GITHUB_ENV
           echo "STRIP=$TOOLCHAIN/bin/llvm-strip" >> $GITHUB_ENV
 
-          echo "PATH=$TOOLCHAIN/bin:$NDK_HOME:$PATH" >> $GITHUB_ENV
+          echo "PATH=$TOOLCHAIN/bin:$PATH" >> $GITHUB_ENV
 
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
