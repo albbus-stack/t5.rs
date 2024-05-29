@@ -138,4 +138,4 @@ jobs:
       - name: Upload to release v1.0.0
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload v1.0.0 ./gen/android/app/build/outputs/apk/**/*.apk --clobber
+        run: gh release upload v1.0.0 ./gen/android/app/build/outputs/apk/arm/release/*.apk ./gen/android/app/build/outputs/apk/arm64/release/*.apk ./gen/android/app/build/outputs/apk/x86/release/*.apk ./gen/android/app/build/outputs/apk/x86_64/release/*.apk --clobber
