@@ -97,10 +97,16 @@ jobs:
 
       - name: Append release config to .cargo/config.toml
         run: |
+          cat .cargo/config.toml
+
           { 
             cat .cargo/config.toml;
+            printf "\n[target.aarch64-linux-android]\nlinker = \"/home/runner/.setup-ndk/r26d/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android24-clang\"\n"
             printf "\n[profile.release]\nopt-level = \"z\"\ndebug = false\nlto = true\ncodegen-units = 1\npanic = \"abort\"\nstrip = true\nincremental = false\n";
-          } > .cargo/config.toml && cat .cargo/config.toml && ls -la $TOOLCHAIN/bin
+          } > .cargo/config.toml
+
+          cat .cargo/config.toml
+          ls -la $TOOLCHAIN/bin
 
       - name: Create .env
         env:
