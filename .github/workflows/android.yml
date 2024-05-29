@@ -136,4 +136,6 @@ jobs:
       # or Upload to a release
 
       - name: Upload to release v1.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: gh release upload v1.0.0 ./gen/android/app/build/outputs/apk/**/*.apk --clobber
