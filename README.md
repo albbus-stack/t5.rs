@@ -109,7 +109,7 @@ linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/ll
 linker = "/<absolute-path-to-home>/<path-to-sdk>/ndk/<ndk-version>/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android<api-version>-clang"
 ```
 
-- You should also setup all the below environment variables in your terminal or in your `.bashrc`/`.zshrc` file (or in the system environment for Windows) to compile the Android app:
+- You should also setup all the below environment variables in your terminal or in your `.bashrc`/`.zshrc` file (or in the system environment for Windows) and install `gcc-multilib` with apt to compile the Android app:
 
 ```sh
 # These two variables depend on the architecture of the device 
